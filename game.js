@@ -344,46 +344,48 @@
   assetLibrary.image.src = "assets/asset-library.jpg";
 
   const heroSprites = {
-    "blue-swordsman": { x: 46, y: 92, w: 40, h: 72 },
-    "red-silver-sword": { x: 236, y: 92, w: 42, h: 72 },
-    "pink-mage-sword": { x: 238, y: 210, w: 45, h: 70 },
-    "blonde-mage-sword": { x: 320, y: 210, w: 45, h: 70 },
-    "fallen-girl": { x: 236, y: 324, w: 48, h: 76 },
-    "dark-hero": { x: 45, y: 431, w: 46, h: 76 },
-    "boy-adventurer": { x: 45, y: 544, w: 42, h: 68 },
-    "cool-archer": { x: 45, y: 655, w: 46, h: 68 },
-    "rose-archer": { x: 236, y: 654, w: 48, h: 72 },
+    "blue-swordsman": { x: 55, y: 143, w: 55, h: 87 },
+    "red-silver-sword": { x: 296, y: 142, w: 62, h: 88 },
+    "pink-mage-sword": { x: 293, y: 270, w: 55, h: 88 },
+    "blonde-mage-sword": { x: 369, y: 269, w: 58, h: 88 },
+    "fallen-girl": { x: 296, y: 397, w: 58, h: 88 },
+    "dark-hero": { x: 47, y: 528, w: 66, h: 88 },
+    "boy-adventurer": { x: 48, y: 643, w: 62, h: 86 },
+    "cool-archer": { x: 48, y: 758, w: 59, h: 88 },
+    "rose-archer": { x: 296, y: 757, w: 62, h: 88 },
   };
 
   const enemySprites = {
-    slime: { x: 442, y: 110, w: 54, h: 54 },
-    mushroom: { x: 506, y: 110, w: 54, h: 54 },
-    goblin: { x: 570, y: 110, w: 54, h: 54 },
-    bat: { x: 635, y: 110, w: 54, h: 54 },
-    wolf: { x: 699, y: 110, w: 54, h: 54 },
-    golem: { x: 762, y: 110, w: 54, h: 54 },
-    ghost: { x: 442, y: 178, w: 54, h: 54 },
-    mimic: { x: 506, y: 178, w: 54, h: 54 },
-    lizard: { x: 570, y: 178, w: 54, h: 54 },
-    bee: { x: 635, y: 178, w: 54, h: 54 },
-    cactus: { x: 699, y: 178, w: 54, h: 54 },
-    snowman: { x: 762, y: 178, w: 54, h: 54 },
-    dragon: { x: 442, y: 246, w: 54, h: 54 },
-    knight: { x: 506, y: 246, w: 54, h: 54 },
-    mage: { x: 570, y: 246, w: 54, h: 54 },
-    crab: { x: 635, y: 246, w: 54, h: 54 },
-    doll: { x: 699, y: 246, w: 54, h: 54 },
-    flower: { x: 762, y: 246, w: 54, h: 54 },
-    rareSlime: { x: 442, y: 333, w: 72, h: 64 },
-    rareMushroom: { x: 548, y: 333, w: 72, h: 64 },
+    slime: { x: 548, y: 126, w: 62, h: 66 },
+    mushroom: { x: 626, y: 126, w: 62, h: 66 },
+    goblin: { x: 700, y: 125, w: 64, h: 68 },
+    bat: { x: 770, y: 126, w: 58, h: 66 },
+    wolf: { x: 846, y: 126, w: 64, h: 66 },
+    golem: { x: 923, y: 123, w: 68, h: 70 },
+    ghost: { x: 550, y: 216, w: 64, h: 68 },
+    mimic: { x: 625, y: 215, w: 64, h: 70 },
+    lizard: { x: 699, y: 215, w: 66, h: 70 },
+    bee: { x: 774, y: 215, w: 58, h: 70 },
+    cactus: { x: 849, y: 215, w: 64, h: 70 },
+    snowman: { x: 925, y: 215, w: 66, h: 70 },
+    dragon: { x: 550, y: 296, w: 66, h: 70 },
+    knight: { x: 625, y: 296, w: 66, h: 70 },
+    mage: { x: 699, y: 296, w: 68, h: 70 },
+    crab: { x: 775, y: 296, w: 56, h: 70 },
+    doll: { x: 849, y: 296, w: 54, h: 70 },
+    flower: { x: 923, y: 296, w: 68, h: 70 },
+    rareSlime: { x: 560, y: 407, w: 55, h: 54 },
+    rareMushroom: { x: 704, y: 405, w: 62, h: 58 },
+    rareRabbit: { x: 857, y: 396, w: 55, h: 60 },
   };
 
   const bossSprites = [
-    { x: 442, y: 418, w: 143, h: 92 },
-    { x: 635, y: 418, w: 143, h: 92 },
-    { x: 779, y: 418, w: 143, h: 92 },
-    { x: 442, y: 536, w: 143, h: 92 },
-    { x: 538, y: 626, w: 104, h: 70 },
+    { x: 548, y: 500, w: 145, h: 88 },
+    { x: 706, y: 500, w: 145, h: 86 },
+    { x: 706, y: 500, w: 145, h: 86 },
+    { x: 866, y: 497, w: 132, h: 92 },
+    { x: 552, y: 637, w: 132, h: 72 },
+    { x: 558, y: 750, w: 120, h: 72 },
   ];
 
   const effectSprites = {
@@ -1348,7 +1350,7 @@
   function drawHeroPortrait(targetCtx, hero, scale) {
     targetCtx.imageSmoothingEnabled = false;
     targetCtx.clearRect(0, 0, 120, 120);
-    if (drawLibrarySprite(targetCtx, hero.spriteKey, 60, 64, 2.2 * scale, 0, false)) return;
+    if (drawLibrarySprite(targetCtx, hero.spriteKey, 60, 96, 1.55 * scale, 0, false)) return;
     targetCtx.save();
     targetCtx.translate(60, 68);
     drawHeroFigure(targetCtx, hero, 0, 0, 1.7 * scale, -Math.PI / 6, true);
@@ -1461,8 +1463,8 @@
       target.ellipse(0, 24, 24 + swing * 6, 8, 0, 0, TAU);
       target.fill();
     }
-    const spriteScale = portrait ? 1.75 * scale : 1.08 * scale;
-    drawLibrarySprite(target, hero.spriteKey, 0, portrait ? 20 : 18, spriteScale, 0, false);
+    const spriteScale = portrait ? 1.15 * scale : 0.9 * scale;
+    drawLibrarySprite(target, hero.spriteKey, 0, portrait ? 34 : 26, spriteScale, 0, false);
     if (attackProgress > 0) drawSpriteWeaponOverlay(target, hero.design.weapon, hero.design.accent, angle, attackProgress, portrait);
     if (magicProgress > 0) drawCastingAura(target, hero.design.accent, magicProgress);
     target.restore();
