@@ -48,6 +48,7 @@
       magic: 40,
       special: "スターライトスラッシュ",
       icon: "剣",
+      spriteKey: "blue-swordsman",
       design: {
         skin: "#f0b58c",
         hair: "#1f69c8",
@@ -75,6 +76,7 @@
       magic: 42,
       special: "シルバーレイヴ",
       icon: "銀",
+      spriteKey: "red-silver-sword",
       design: {
         skin: "#f4bd96",
         hair: "#d43b3b",
@@ -102,6 +104,7 @@
       magic: 54,
       special: "ハートフレア",
       icon: "花",
+      spriteKey: "pink-mage-sword",
       design: {
         skin: "#ffd0aa",
         hair: "#ef5fae",
@@ -129,6 +132,7 @@
       magic: 58,
       special: "プリズムブルーム",
       icon: "杖",
+      spriteKey: "blonde-mage-sword",
       design: {
         skin: "#ffd6b0",
         hair: "#f3c65b",
@@ -156,6 +160,7 @@
       magic: 58,
       special: "ダークムーン",
       icon: "闇",
+      spriteKey: "fallen-girl",
       design: {
         skin: "#e8bca1",
         hair: "#7432a8",
@@ -183,6 +188,7 @@
       magic: 38,
       special: "ブラックインパクト",
       icon: "鎧",
+      spriteKey: "dark-hero",
       design: {
         skin: "#b9876b",
         hair: "#121722",
@@ -210,6 +216,7 @@
       magic: 43,
       special: "ブレイブスマッシュ",
       icon: "星",
+      spriteKey: "boy-adventurer",
       design: {
         skin: "#f0b489",
         hair: "#b45f2c",
@@ -237,6 +244,7 @@
       magic: 44,
       special: "シャイニングアロー",
       icon: "弓",
+      spriteKey: "cool-archer",
       design: {
         skin: "#d0a080",
         hair: "#252a38",
@@ -264,6 +272,7 @@
       magic: 50,
       special: "ローズシュート",
       icon: "矢",
+      spriteKey: "rose-archer",
       design: {
         skin: "#ffd0aa",
         hair: "#e85b9f",
@@ -280,18 +289,18 @@
   ];
 
   const enemyCatalog = [
-    ["ぷるぷるスライム", "#65d6ff", 26, 11, 8, 6],
-    ["毒花モンスター", "#d95d91", 32, 13, 10, 8],
-    ["きのこ兵", "#ff8d4f", 30, 12, 10, 8],
-    ["ゴブリン", "#79ce5f", 38, 16, 13, 11],
-    ["コウモリ", "#775ccf", 24, 15, 11, 10],
-    ["トカゲ戦士", "#4fc18b", 44, 19, 17, 15],
-    ["宝石カニ", "#57d7d1", 40, 15, 20, 16],
-    ["サボテン兵", "#8ccf45", 46, 18, 19, 17],
-    ["雪だるま魔人", "#c7f4ff", 48, 18, 22, 18],
-    ["闇の騎士", "#38405d", 58, 24, 32, 24],
-    ["からくり人形", "#c89c62", 52, 21, 29, 22],
-    ["小型ドラゴン", "#e45e41", 62, 26, 35, 28],
+    ["スライム", "#65d6ff", 26, 11, 8, 6, "slime"],
+    ["毒花モンスター", "#d95d91", 32, 13, 10, 8, "flower"],
+    ["黄金キノコ", "#ff8d4f", 30, 12, 10, 8, "mushroom"],
+    ["ゴブリン", "#79ce5f", 38, 16, 13, 11, "goblin"],
+    ["バット", "#775ccf", 24, 15, 11, 10, "bat"],
+    ["リザード戦士", "#4fc18b", 44, 19, 17, 15, "lizard"],
+    ["ジェムカニ", "#57d7d1", 40, 15, 20, 16, "crab"],
+    ["カクタス兵", "#8ccf45", 46, 18, 19, 17, "cactus"],
+    ["スノーマン魔物", "#c7f4ff", 48, 18, 22, 18, "snowman"],
+    ["騎士モンスター", "#38405d", 58, 24, 32, 24, "knight"],
+    ["ドール", "#c89c62", 52, 21, 29, 22, "doll"],
+    ["小型ドラゴン", "#e45e41", 62, 26, 35, 28, "dragon"],
   ];
 
   const quizPool = [
@@ -313,6 +322,64 @@
     ["アクアドラゴン", "#3aabff", "#cff8ff"],
     ["サンドスコーピオン", "#d3a24d", "#fff06b"],
     ["黒星の魔王", "#27172f", "#ff4c91"],
+  ];
+
+  const assetLibrary = {
+    image: new Image(),
+    ready: false,
+    failed: false,
+  };
+  assetLibrary.image.onload = () => {
+    assetLibrary.ready = true;
+    setupCharacters();
+  };
+  assetLibrary.image.onerror = () => {
+    assetLibrary.failed = true;
+  };
+  assetLibrary.image.src = "assets/asset-library.png";
+
+  const heroSprites = {
+    "blue-swordsman": { x: 46, y: 92, w: 40, h: 72 },
+    "red-silver-sword": { x: 236, y: 92, w: 42, h: 72 },
+    "pink-mage-sword": { x: 238, y: 210, w: 45, h: 70 },
+    "blonde-mage-sword": { x: 320, y: 210, w: 45, h: 70 },
+    "fallen-girl": { x: 236, y: 324, w: 48, h: 76 },
+    "dark-hero": { x: 45, y: 431, w: 46, h: 76 },
+    "boy-adventurer": { x: 45, y: 544, w: 42, h: 68 },
+    "cool-archer": { x: 45, y: 655, w: 46, h: 68 },
+    "rose-archer": { x: 236, y: 654, w: 48, h: 72 },
+  };
+
+  const enemySprites = {
+    slime: { x: 442, y: 110, w: 54, h: 54 },
+    mushroom: { x: 506, y: 110, w: 54, h: 54 },
+    goblin: { x: 570, y: 110, w: 54, h: 54 },
+    bat: { x: 635, y: 110, w: 54, h: 54 },
+    wolf: { x: 699, y: 110, w: 54, h: 54 },
+    golem: { x: 762, y: 110, w: 54, h: 54 },
+    ghost: { x: 442, y: 178, w: 54, h: 54 },
+    mimic: { x: 506, y: 178, w: 54, h: 54 },
+    lizard: { x: 570, y: 178, w: 54, h: 54 },
+    bee: { x: 635, y: 178, w: 54, h: 54 },
+    cactus: { x: 699, y: 178, w: 54, h: 54 },
+    snowman: { x: 762, y: 178, w: 54, h: 54 },
+    dragon: { x: 442, y: 246, w: 54, h: 54 },
+    knight: { x: 506, y: 246, w: 54, h: 54 },
+    mage: { x: 570, y: 246, w: 54, h: 54 },
+    crab: { x: 635, y: 246, w: 54, h: 54 },
+    doll: { x: 699, y: 246, w: 54, h: 54 },
+    flower: { x: 762, y: 246, w: 54, h: 54 },
+    rareSlime: { x: 442, y: 333, w: 72, h: 64 },
+    rareMushroom: { x: 548, y: 333, w: 72, h: 64 },
+  };
+
+  const bossSprites = [
+    { x: 442, y: 418, w: 143, h: 92 },
+    { x: 635, y: 418, w: 143, h: 92 },
+    { x: 635, y: 418, w: 143, h: 92 },
+    { x: 779, y: 418, w: 143, h: 92 },
+    { x: 442, y: 536, w: 143, h: 92 },
+    { x: 538, y: 626, w: 104, h: 70 },
   ];
 
   const keys = new Set();
@@ -374,6 +441,12 @@
     });
   }
 
+  function refreshCharacterPortraits() {
+    characterGrid.querySelectorAll(".character-card canvas").forEach((canvasEl, index) => {
+      drawHeroPortrait(canvasEl.getContext("2d"), heroes[index], 1);
+    });
+  }
+
   function startGame(hero, loaded) {
     initAudio();
     const save = loaded || {};
@@ -418,8 +491,9 @@
 
   function spawnEnemy(rare) {
     const pick = enemyCatalog[(Math.random() * Math.min(enemyCatalog.length, 5 + state.stage * 2)) | 0];
+    const enemyName = rare ? "キラキラスライム" : pick[0];
     state.enemies.push({
-      name: rare ? "キラキラスライム" : pick[0],
+      name: enemyName,
       x: 280 + Math.random() * 560,
       y: 75 + Math.random() * 390,
       r: rare ? 16 : 14 + Math.random() * 8,
@@ -430,6 +504,7 @@
       xp: rare ? 180 + state.stage * 95 : pick[4] + state.stage * 9,
       gold: rare ? 60 : pick[5],
       rare,
+      spriteKey: getEnemySpriteKey(enemyName, rare),
       speed: rare ? 140 : 45 + Math.random() * 35 + state.stage * 7,
       hit: 0,
     });
@@ -1263,10 +1338,124 @@
   function drawHeroPortrait(targetCtx, hero, scale) {
     targetCtx.imageSmoothingEnabled = false;
     targetCtx.clearRect(0, 0, 120, 120);
+    if (drawLibrarySprite(targetCtx, hero.spriteKey, 60, 64, 2.2 * scale, 0, false)) return;
     targetCtx.save();
     targetCtx.translate(60, 68);
     drawHeroFigure(targetCtx, hero, 0, 0, 1.7 * scale, -Math.PI / 6, true);
     targetCtx.restore();
+  }
+
+  function drawLibrarySprite(target, key, x, y, scale, angle, flip) {
+    const source = heroSprites[key] || enemySprites[key];
+    if (!assetLibrary.ready || !source) return false;
+    target.save();
+    target.translate(x, y);
+    if (angle) target.rotate(angle);
+    target.scale(flip ? -scale : scale, scale);
+    target.imageSmoothingEnabled = false;
+    target.drawImage(
+      assetLibrary.image,
+      source.x,
+      source.y,
+      source.w,
+      source.h,
+      -source.w / 2,
+      -source.h,
+      source.w,
+      source.h,
+    );
+    target.restore();
+    return true;
+  }
+
+  function drawLibraryBossSprite(target, index, scale) {
+    const source = bossSprites[index] || bossSprites[0];
+    if (!assetLibrary.ready || !source) return false;
+    target.save();
+    target.scale(scale, scale);
+    target.imageSmoothingEnabled = false;
+    target.drawImage(
+      assetLibrary.image,
+      source.x,
+      source.y,
+      source.w,
+      source.h,
+      -source.w / 2,
+      -source.h / 2,
+      source.w,
+      source.h,
+    );
+    target.restore();
+    return true;
+  }
+
+  function drawBossLibrarySprite(target, index, x, y, radius) {
+    const source = bossSprites[index] || bossSprites[0];
+    if (!assetLibrary.ready || !source) return false;
+    const scale = Math.max((radius * 1.7) / source.w, (radius * 1.25) / source.h);
+    target.save();
+    target.translate(x, y + 8);
+    target.imageSmoothingEnabled = false;
+    target.drawImage(
+      assetLibrary.image,
+      source.x,
+      source.y,
+      source.w,
+      source.h,
+      (-source.w * scale) / 2,
+      (-source.h * scale) / 2,
+      source.w * scale,
+      source.h * scale,
+    );
+    target.restore();
+    return true;
+  }
+
+  function getEnemySpriteKey(name, rare) {
+    if (rare) return Math.random() < 0.5 ? "rareSlime" : "rareMushroom";
+    if (name.includes("スライム")) return "slime";
+    if (name.includes("きのこ")) return "mushroom";
+    if (name.includes("ゴブリン")) return "goblin";
+    if (name.includes("コウモリ")) return "bat";
+    if (name.includes("オオカミ")) return "wolf";
+    if (name.includes("ゴーレム")) return "golem";
+    if (name.includes("ゴースト")) return "ghost";
+    if (name.includes("ミミック")) return "mimic";
+    if (name.includes("トカゲ")) return "lizard";
+    if (name.includes("ハチ")) return "bee";
+    if (name.includes("サボテン")) return "cactus";
+    if (name.includes("雪")) return "snowman";
+    if (name.includes("ドラゴン")) return "dragon";
+    if (name.includes("騎士")) return "knight";
+    if (name.includes("魔法")) return "mage";
+    if (name.includes("カニ")) return "crab";
+    if (name.includes("人形")) return "doll";
+    if (name.includes("花")) return "flower";
+    return "slime";
+  }
+
+  function drawAssetHeroFigure(target, hero, x, y, scale, angle, portrait, companion) {
+    const isPlayer = !portrait && !companion && state.hero && hero.id === state.hero.id;
+    const attackProgress = isPlayer && state.attackTimer > 0 ? 1 - state.attackTimer / state.attackDuration : 0;
+    const magicProgress = isPlayer && state.magicTimer > 0 ? 1 - state.magicTimer / 0.55 : 0;
+    const swing = attackProgress > 0 ? Math.sin(attackProgress * Math.PI) : 0;
+    const bob = portrait ? 0 : Math.sin(state.time * 8 + x * 0.03) * 2;
+    const lunge = isPlayer ? swing * 10 : 0;
+    target.save();
+    target.translate(x + Math.cos(angle) * lunge, y + bob + Math.sin(angle) * lunge);
+    if (!portrait && attackProgress > 0) target.rotate(Math.sin((attackProgress - 0.2) * Math.PI) * 0.16);
+    target.scale(1 + swing * 0.08, 1 - swing * 0.03);
+    if (!portrait) {
+      target.fillStyle = "rgba(0,0,0,0.28)";
+      target.beginPath();
+      target.ellipse(0, 24, 24 + swing * 6, 8, 0, 0, TAU);
+      target.fill();
+    }
+    const spriteScale = portrait ? 1.75 * scale : 1.08 * scale;
+    drawLibrarySprite(target, hero.spriteKey, 0, portrait ? 20 : 18, spriteScale, 0, false);
+    if (attackProgress > 0) drawSpriteWeaponOverlay(target, hero.design.weapon, hero.design.accent, angle, attackProgress, portrait);
+    if (magicProgress > 0) drawCastingAura(target, hero.design.accent, magicProgress);
+    target.restore();
   }
 
   function drawParty() {
@@ -1294,6 +1483,10 @@
   }
 
   function drawHeroFigure(target, hero, x, y, scale, angle, portrait, companion) {
+    if (assetLibrary.ready && hero.spriteKey) {
+      drawAssetHeroFigure(target, hero, x, y, scale, angle, portrait, companion);
+      return;
+    }
     const d = hero.design;
     const isPlayer = !portrait && !companion && state.hero && hero.id === state.hero.id;
     const attackProgress = isPlayer && state.attackTimer > 0 ? 1 - state.attackTimer / state.attackDuration : 0;
@@ -1302,6 +1495,18 @@
     const windup = attackProgress > 0 && attackProgress < 0.38 ? -1 : 1;
     const bob = portrait ? 0 : Math.sin(state.time * 8 + x * 0.03) * 2;
     const lunge = isPlayer ? swing * 10 : 0;
+    if (assetLibrary.ready) {
+      target.save();
+      target.translate(x + Math.cos(angle) * lunge, y + bob + Math.sin(angle) * lunge);
+      if (!portrait && attackProgress > 0) target.rotate(Math.sin((attackProgress - 0.2) * Math.PI) * 0.16);
+      target.scale(1 + swing * 0.08, 1 - swing * 0.03);
+      const spriteScale = portrait ? 1.9 * scale : 1.15 * scale;
+      drawLibrarySprite(target, hero.spriteKey, 0, 8, spriteScale, angle, false);
+      if (attackProgress > 0) drawSpriteWeaponOverlay(target, hero.design.weapon, hero.design.accent, angle, attackProgress, portrait);
+      if (magicProgress > 0) drawCastingAura(target, d.accent, magicProgress);
+      target.restore();
+      return;
+    }
     target.save();
     target.translate(x + Math.cos(angle) * lunge, y + bob + Math.sin(angle) * lunge);
     if (attackProgress > 0 && !portrait) target.rotate(Math.sin((attackProgress - 0.2) * Math.PI) * 0.1);
@@ -1593,7 +1798,12 @@
       ctx.save();
       ctx.translate(e.x, e.y + Math.sin(state.time * 6 + e.x) * 2);
       ctx.globalAlpha = e.hit > 0 ? 0.72 : 1;
-      if (e.rare) drawRareMonster(e);
+      if (assetLibrary.ready && drawLibrarySprite(ctx, e.spriteKey, 0, 0, e.rare ? 0.92 : 0.72, 0, false)) {
+        ctx.fillStyle = "rgba(0,0,0,0.24)";
+        ctx.beginPath();
+        ctx.ellipse(0, 22, e.r + 10, 7, 0, 0, TAU);
+        ctx.fill();
+      } else if (e.rare) drawRareMonster(e);
       else if (e.name.includes("スライム")) drawSlime(e);
       else if (e.name.includes("花") || e.name.includes("きのこ")) drawPlantEnemy(e);
       else if (e.name.includes("コウモリ")) drawBat(e);
@@ -1779,7 +1989,9 @@
     ctx.fillStyle = b.color;
     ctx.strokeStyle = b.aura;
     ctx.lineWidth = 8;
-    if (b.name.includes("大蛇")) drawSerpentBoss(b);
+    if (assetLibrary.ready && drawBossLibrarySprite(ctx, state.stage, 0, 0, b.r)) {
+      // Submitted asset sheet is the primary source when available.
+    } else if (b.name.includes("大蛇")) drawSerpentBoss(b);
     else if (b.name.includes("グリフォン")) drawGriffinBoss(b);
     else if (b.name.includes("ゴーレム")) drawGolemBoss(b);
     else if (b.name.includes("ドラゴン")) drawDragonBoss(b);
