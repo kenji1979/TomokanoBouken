@@ -241,7 +241,6 @@
     enemies: [],
     particles: [],
     pickups: [],
-    quizCrystals: [],
     boss: null,
     cameraShake: 0,
     time: 0,
@@ -315,7 +314,6 @@
     state.enemies = [];
     state.particles = [];
     state.pickups = [];
-    state.quizCrystals = [];
     state.boss = null;
     state.player.x = 150;
     state.player.y = 280;
@@ -498,13 +496,6 @@
       }
     }
     state.pickups = state.pickups.filter((item) => item.life > 0);
-  }
-
-  function updateQuizCrystals(dt) {
-    for (const q of state.quizCrystals) {
-      q.pulse += dt * 2.3;
-      if (!q.solved && Math.hypot(q.x - state.player.x, q.y - state.player.y) < 52) openQuiz(q);
-    }
   }
 
   function attack() {
@@ -1229,25 +1220,6 @@
     ctx.fillText(b.name, b.x, b.y - b.r - 28);
     drawHpBar(b.x, b.y - b.r - 18, b.hp / b.maxHp, 190);
     ctx.restore();
-  }
-
-  function drawQuizCrystals() {
-    for (const q of state.quizCrystals) {
-      ctx.save();
-      ctx.globalAlpha = q.solved ? 0.35 : 1;
-      const r = q.r + Math.sin(q.pulse) * 4;
-      ctx.shadowColor = "#a6f7ff";
-      ctx.shadowBlur = 18;
-      ctx.fillStyle = q.solved ? "#7c849e" : "#9de8ff";
-      ctx.beginPath();
-      ctx.moveTo(q.x, q.y - r);
-      ctx.lineTo(q.x + r, q.y);
-      ctx.lineTo(q.x, q.y + r);
-      ctx.lineTo(q.x - r, q.y);
-      ctx.closePath();
-      ctx.fill();
-      ctx.restore();
-    }
   }
 
   function drawPickups() {
