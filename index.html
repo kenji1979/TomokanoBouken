@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ともかクエスト</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="app">
+    <section id="titleScreen" class="screen">
+      <div class="panel hero-panel">
+        <p class="eyebrow">ブラウザで遊べる剣と魔法のアクションRPG</p>
+        <h1>ともかクエスト</h1>
+        <p class="lead">
+          クリスタルのかけらを集めて、黒い星から世界を救おう。
+          小学2年生向けの算数・国語クイズも出てくるよ。
+        </p>
+        <button id="startButton" class="primary">冒険をはじめる</button>
+        <button id="continueButton" class="secondary">つづきから</button>
+      </div>
+      <div class="panel howto">
+        <h2>あそびかた</h2>
+        <ul>
+          <li>PC: WASD/矢印キーで移動、Space/クリックで攻撃、Qで魔法</li>
+          <li>iPad: 左スティックで移動、右下ボタンで攻撃・魔法</li>
+          <li>レアなキラキラモンスターは大量経験値!</li>
+          <li>落下死なし。負けてもすぐ再挑戦できます。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="characterScreen" class="screen hidden">
+      <div class="panel wide">
+        <h2>主人公をえらぼう</h2>
+        <p>見た目・必殺技・得意な戦い方が少しずつ違います。</p>
+        <div id="characterGrid" class="character-grid"></div>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen hidden">
+      <canvas id="gameCanvas" width="960" height="540" aria-label="ともかクエスト game canvas"></canvas>
+      <div id="hud">
+        <div class="meter"><span>HP</span><b id="hpText"></b></div>
+        <div class="meter mp"><span>MP</span><b id="mpText"></b></div>
+        <div class="meter xp"><span>Lv/EXP</span><b id="xpText"></b></div>
+        <div id="objective"></div>
+      </div>
+      <div id="mobileControls">
+        <div id="stick"><div id="stickKnob"></div></div>
+        <button id="attackButton">攻撃</button>
+        <button id="magicButton">魔法</button>
+      </div>
+      <div id="toast" class="toast hidden"></div>
+    </section>
+
+    <section id="quizModal" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="panel quiz-panel">
+        <h2 id="quizTitle">クイズ!</h2>
+        <p id="quizQuestion"></p>
+        <div id="quizAnswers" class="answers"></div>
+        <p id="quizHint" class="hint"></p>
+      </div>
+    </section>
+
+    <section id="endScreen" class="screen hidden">
+      <div class="panel hero-panel">
+        <p class="eyebrow">クリア!</p>
+        <h1>世界に光が戻った!</h1>
+        <p id="clearSummary" class="lead"></p>
+        <button id="restartButton" class="primary">もう一度あそぶ</button>
+      </div>
+    </section>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
