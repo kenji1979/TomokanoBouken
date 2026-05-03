@@ -1643,8 +1643,7 @@
 
   function drawGolemBoss(b) {
     for (let i = 0; i < 5; i += 1) {
-      ctx.beginPath();
-      ctx.roundRect ? ctx.roundRect(-b.r * 0.55 + i * b.r * 0.28, -b.r * 0.35 + (i % 2) * 18, b.r * 0.26, b.r * 0.55, 12) : ctx.rect(-b.r * 0.55 + i * b.r * 0.28, -b.r * 0.35 + (i % 2) * 18, b.r * 0.26, b.r * 0.55);
+      roundRect(ctx, -b.r * 0.55 + i * b.r * 0.28, -b.r * 0.35 + (i % 2) * 18, b.r * 0.26, b.r * 0.55, 12);
       ctx.fill(); ctx.stroke();
     }
     drawBossEyes(0, -b.r * 0.38, 12);
