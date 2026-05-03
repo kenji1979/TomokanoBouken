@@ -215,22 +215,23 @@
 
   function startGame(hero, loaded) {
     initAudio();
+    const save = loaded || {};
     state.hero = hero;
-    state.stage = loaded?.stage || 0;
-    state.kills = loaded?.kills || 0;
-    state.rareKills = loaded?.rareKills || 0;
-    state.quizzesSolved = loaded?.quizzesSolved || 0;
-    state.bossDefeated = loaded?.bossDefeated || 0;
+    state.stage = save.stage || 0;
+    state.kills = save.kills || 0;
+    state.rareKills = save.rareKills || 0;
+    state.quizzesSolved = save.quizzesSolved || 0;
+    state.bossDefeated = save.bossDefeated || 0;
     state.player = {
       x: 180,
       y: 300,
       r: 18,
-      hp: loaded?.hp || hero.maxHp,
-      mp: loaded?.mp || hero.maxMp,
+      hp: save.hp || hero.maxHp,
+      mp: save.mp || hero.maxMp,
       maxHp: hero.maxHp,
       maxMp: hero.maxMp,
-      level: loaded?.level || 1,
-      xp: loaded?.xp || 0,
+      level: save.level || 1,
+      xp: save.xp || 0,
       dirX: 1,
       dirY: 0,
       invuln: 0,
