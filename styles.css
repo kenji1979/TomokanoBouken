@@ -1,0 +1,339 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: dark;
+  font-family: "Trebuchet MS", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  background: #101424;
+  color: #f8f4ff;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(142, 82, 255, 0.36), transparent 28rem),
+    radial-gradient(circle at 82% 10%, rgba(255, 206, 92, 0.22), transparent 26rem),
+    linear-gradient(135deg, #101424 0%, #1d2548 55%, #11151f 100%);
+}
+
+button {
+  font: inherit;
+}
+
+.screen {
+  min-height: 100vh;
+  padding: clamp(16px, 4vw, 42px);
+  display: grid;
+  place-items: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.panel {
+  width: min(960px, 100%);
+  padding: clamp(20px, 4vw, 42px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 28px;
+  background: rgba(12, 16, 34, 0.88);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.42);
+}
+
+.hero-panel {
+  text-align: center;
+}
+
+.wide {
+  width: min(1120px, 100%);
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #9de8ff;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 12px;
+  color: #ffe17a;
+  font-size: clamp(42px, 9vw, 92px);
+  letter-spacing: 0.12em;
+  text-shadow: 0 0 24px rgba(255, 216, 86, 0.58), 0 6px 0 rgba(0, 0, 0, 0.25);
+}
+
+h2 {
+  color: #9de8ff;
+  font-size: clamp(24px, 4vw, 38px);
+}
+
+.lead {
+  margin-inline: auto;
+  max-width: 700px;
+  color: #e3e0ff;
+  font-size: clamp(16px, 2.4vw, 22px);
+  line-height: 1.75;
+}
+
+.howto {
+  align-self: start;
+  margin-top: 18px;
+}
+
+.howto ul {
+  margin: 0;
+  padding-left: 1.3rem;
+  color: #d9dcf2;
+  line-height: 1.8;
+}
+
+.primary,
+.secondary {
+  min-width: 180px;
+  margin: 8px;
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 22px;
+  color: #101424;
+  font-weight: 900;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ffe17a, #ff9d50);
+  box-shadow: 0 14px 28px rgba(255, 157, 80, 0.25);
+}
+
+.secondary {
+  background: linear-gradient(135deg, #9de8ff, #9dffcd);
+}
+
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.character-card {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 22px;
+  padding: 16px;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.08);
+  transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+
+.character-card:hover,
+.character-card:focus {
+  outline: none;
+  transform: translateY(-3px);
+  border-color: #ffe17a;
+  background: rgba(255, 225, 122, 0.15);
+}
+
+.character-face {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 12px;
+  border-radius: 24px;
+  background: var(--hero-gradient);
+  box-shadow: inset 0 0 22px rgba(255, 255, 255, 0.22);
+}
+
+.character-card strong {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.character-card span {
+  display: block;
+  color: #cfd2ee;
+  line-height: 1.55;
+}
+
+#gameScreen {
+  position: relative;
+  padding: 0;
+  background: #060a16;
+}
+
+#gameCanvas {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  background: #12213c;
+  touch-action: none;
+}
+
+#hud {
+  display: none;
+}
+
+.meter,
+#objective {
+  min-width: 130px;
+  padding: 8px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(8, 10, 22, 0.72);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.24);
+}
+
+.meter span {
+  display: block;
+  color: #9de8ff;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.meter b {
+  color: #fff;
+}
+
+#objective {
+  flex: 1;
+  color: #ffeeb0;
+  line-height: 1.35;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  max-width: min(680px, calc(100vw - 28px));
+  padding: 14px 18px;
+  border-radius: 18px;
+  color: #101424;
+  font-weight: 900;
+  text-align: center;
+  background: linear-gradient(135deg, #ffe17a, #9dffcd);
+  box-shadow: 0 14px 42px rgba(0, 0, 0, 0.35);
+}
+
+#mobileControls {
+  position: fixed;
+  inset: auto 0 max(18px, env(safe-area-inset-bottom)) 0;
+  display: none;
+  pointer-events: none;
+}
+
+#stick {
+  position: absolute;
+  left: max(20px, env(safe-area-inset-left));
+  bottom: 0;
+  width: 132px;
+  height: 132px;
+  border: 2px solid rgba(255, 255, 255, 0.24);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  pointer-events: auto;
+}
+
+#stickKnob {
+  position: absolute;
+  left: 39px;
+  top: 39px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 225, 122, 0.85);
+}
+
+#attackButton,
+#magicButton {
+  position: absolute;
+  right: max(24px, env(safe-area-inset-right));
+  bottom: 8px;
+  width: 82px;
+  height: 82px;
+  border: 0;
+  border-radius: 50%;
+  color: #101424;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ffe17a, #ff63b8);
+  pointer-events: auto;
+}
+
+#magicButton {
+  right: max(118px, calc(env(safe-area-inset-right) + 118px));
+  background: linear-gradient(135deg, #9de8ff, #b55dff);
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(4, 6, 16, 0.74);
+  backdrop-filter: blur(7px);
+}
+
+.quiz-panel {
+  width: min(620px, 100%);
+  text-align: center;
+}
+
+#quizQuestion {
+  font-size: clamp(20px, 4vw, 32px);
+  font-weight: 900;
+}
+
+.answers {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.answers button {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  padding: 14px;
+  color: #fff;
+  font-weight: 900;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.answers button:hover {
+  border-color: #ffe17a;
+}
+
+.hint {
+  min-height: 1.4em;
+  color: #ffeeb0;
+  font-weight: 800;
+}
+
+@media (hover: none), (pointer: coarse) {
+  #mobileControls {
+    display: block;
+  }
+}
+
+@media (max-width: 720px) {
+  body {
+    overflow: auto;
+  }
+
+  #hud {
+    font-size: 13px;
+  }
+
+  .meter {
+    min-width: 96px;
+  }
+}
