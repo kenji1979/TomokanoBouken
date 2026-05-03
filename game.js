@@ -1761,6 +1761,35 @@
     target.restore();
   }
 
+  function drawSpriteWeaponOverlay(target, weapon, color, angle, progress, portrait) {
+    if (portrait) return;
+    const swing = Math.sin(progress * Math.PI);
+    const sweep = -1.1 + progress * 2.35;
+    const length = weapon === "greatsword" ? 82 : weapon === "dagger" ? 42 : weapon === "bow" ? 58 : 64;
+    target.save();
+    target.rotate(angle + sweep);
+    target.translate(28 + swing * 14, -14 - swing * 10);
+    target.strokeStyle = "rgba(35, 24, 22, 0.9)";
+    target.lineWidth = weapon === "greatsword" ? 10 : 7;
+    target.lineCap = "round";
+    target.beginPath();
+    target.moveTo(0, 0);
+    target.lineTo(length, -10);
+    target.stroke();
+    target.strokeStyle = "#f8fbff";
+    target.lineWidth = weapon === "greatsword" ? 7 : 4;
+    target.beginPath();
+    target.moveTo(6, -1);
+    target.lineTo(length, -10);
+    target.stroke();
+    target.strokeStyle = color;
+    target.lineWidth = 3;
+    target.beginPath();
+    target.arc(length * 0.58, -8, 20 + swing * 8, -0.4, 0.65);
+    target.stroke();
+    target.restore();
+  }
+
   function drawCastingAura(target, color, progress) {
     target.save();
     target.globalAlpha = Math.sin(progress * Math.PI) * 0.75;
