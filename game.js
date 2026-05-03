@@ -341,7 +341,7 @@
   assetLibrary.image.onerror = () => {
     assetLibrary.failed = true;
   };
-  assetLibrary.image.src = "assets/asset-library.jpg";
+  assetLibrary.image.src = "assets/image_17.png";
 
   const heroSprites = {
     "blue-swordsman": { x: 55, y: 143, w: 55, h: 87 },
@@ -394,6 +394,54 @@
     burst: { x: 947, y: 812, w: 48, h: 54 },
   };
 
+  const selectableHeroIds = new Set(["blue-swordsman", "red-silver-sword", "pink-mage-sword", "blonde-mage-sword"]);
+
+  const spritePaths = {
+    heroes: {
+      "blue-swordsman": "assets/sprites/heroes/leon.png",
+      "red-silver-sword": "assets/sprites/heroes/allen.png",
+      "pink-mage-sword": "assets/sprites/heroes/lulu.png",
+      "blonde-mage-sword": "assets/sprites/heroes/tina.png",
+    },
+    enemies: {
+      slime: "assets/sprites/enemies/slime.png",
+      mushroom: "assets/sprites/enemies/mushroom.png",
+      goblin: "assets/sprites/enemies/goblin.png",
+      bat: "assets/sprites/enemies/bat.png",
+      wolf: "assets/sprites/enemies/wolf.png",
+      golem: "assets/sprites/enemies/golem.png",
+      ghost: "assets/sprites/enemies/ghost.png",
+      mimic: "assets/sprites/enemies/mimic.png",
+      lizard: "assets/sprites/enemies/lizard.png",
+      bee: "assets/sprites/enemies/bee.png",
+      cactus: "assets/sprites/enemies/cactus.png",
+      snowman: "assets/sprites/enemies/snowman.png",
+      dragon: "assets/sprites/enemies/dragon.png",
+      knight: "assets/sprites/enemies/knight.png",
+      mage: "assets/sprites/enemies/mage.png",
+      crab: "assets/sprites/enemies/crab.png",
+      doll: "assets/sprites/enemies/doll.png",
+      flower: "assets/sprites/enemies/flower.png",
+      rareSlime: "assets/sprites/enemies/rare_slime.png",
+      rareMushroom: "assets/sprites/enemies/rare_mushroom.png",
+    },
+    bosses: [
+      "assets/sprites/bosses/vine_serpent.png",
+      "assets/sprites/bosses/magma_golem.png",
+      "assets/sprites/bosses/aqua_dragon.png",
+      "assets/sprites/bosses/sand_scorpion.png",
+      "assets/sprites/bosses/black_star.png",
+    ],
+    effects: {
+      slash: "assets/sprites/effects/slash.png",
+      dark: "assets/sprites/effects/dark_slash.png",
+      burst: "assets/sprites/effects/burst.png",
+    },
+  };
+
+  const spriteImages = { heroes: {}, enemies: {}, bosses: [], effects: {} };
+  preloadTransparentSprites();
+
   const keys = new Set();
   let audio;
   let last = performance.now();
@@ -422,6 +470,12 @@
     attackCombo: 0,
     magicCooldown: 0,
     magicTimer: 0,
+    dashTimer: 0,
+    dashCooldown: 0,
+    combo: 0,
+    comboTimer: 0,
+    stageWave: 1,
+    enemyShots: 0,
     mobile: { x: 0, y: 0, active: false },
   };
 
@@ -434,9 +488,45 @@
     if (name === "end") endScreen.classList.remove("hidden");
   }
 
+  function getSelectableHeroes() {
+    return heroes.filter((hero) => selectableHeroIds.has(hero.id));
+  }
+
+  function preloadTransparentSprites() {
+    Object.entries(spritePaths.heroes).forEach(([key, path]) => {
+      spriteImages.heroes[key] = loadSpriteImage(path);
+    });
+    Object.entries(spritePaths.enemies).forEach(([key, path]) => {
+      spriteImages.enemies[key] = loadSpriteImage(path);
+    });
+    spritePaths.bosses.forEach((path, index) => {
+      spriteImages.bosses[index] = loadSpriteImage(path);
+    });
+    Object.entries(spritePaths.effects).forEach(([key, path]) => {
+      spriteImages.effects[key] = loadSpriteImage(path);
+    });
+  }
+
+  function loadSpriteImage(path) {
+    const image = new Image();
+    image.onload = () => {
+      image.dataset.ready = "true";
+      refreshCharacterPortraits();
+    };
+    image.onerror = () => {
+      image.dataset.failed = "true";
+    };
+    image.src = path;
+    return image;
+  }
+
+  function isSpriteReady(image) {
+    return image && image.dataset.ready === "true";
+  }
+
   function setupCharacters() {
     characterGrid.innerHTML = "";
-    heroes.forEach((hero) => {
+    getSelectableHeroes().forEach((hero) => {
       const button = document.createElement("button");
       button.className = "character-card";
       button.style.setProperty("--hero-gradient", `radial-gradient(circle, ${hero.aura}, ${hero.color})`);
@@ -455,7 +545,7 @@
 
   function refreshCharacterPortraits() {
     characterGrid.querySelectorAll(".character-card canvas").forEach((canvasEl, index) => {
-      drawHeroPortrait(canvasEl.getContext("2d"), heroes[index], 1);
+      drawHeroPortrait(canvasEl.getContext("2d"), getSelectableHeroes()[index], 1);
     });
   }
 
@@ -493,17 +583,22 @@
     state.particles = [];
     state.pickups = [];
     state.boss = null;
+    state.stageWave = 1;
+    state.enemyShots = 0;
+    state.combo = 0;
+    state.comboTimer = 0;
     state.player.x = 150;
     state.player.y = 280;
     const count = 7 + stage * 2;
     for (let i = 0; i < count; i += 1) spawnEnemy(false);
     if (Math.random() < 0.85) spawnEnemy(true);
-    objective.textContent = `${stageNames[stage]}: 敵を倒して大型ボスに挑もう。クイズはステージクリア時だけ!`;
+    objective.textContent = `${stageNames[stage]}: 敵を倒してコンボをつなぎ、精鋭ウェーブ後に大型ボスへ挑もう!`;
   }
 
   function spawnEnemy(rare) {
     const pick = enemyCatalog[(Math.random() * Math.min(enemyCatalog.length, 5 + state.stage * 2)) | 0];
     const enemyName = rare ? "キラキラスライム" : pick[0];
+    const spriteKey = rare ? (Math.random() < 0.5 ? "rareSlime" : "rareMushroom") : pick[6];
     state.enemies.push({
       name: enemyName,
       x: 280 + Math.random() * 560,
@@ -516,8 +611,10 @@
       xp: rare ? 180 + state.stage * 95 : pick[4] + state.stage * 9,
       gold: rare ? 60 : pick[5],
       rare,
-      spriteKey: getEnemySpriteKey(enemyName, rare),
-      speed: rare ? 140 : 45 + Math.random() * 35 + state.stage * 7,
+      spriteKey,
+      speed: rare ? 150 : 50 + Math.random() * 38 + state.stage * 7,
+      behavior: pick[6] === "bat" || pick[6] === "mage" ? "shooter" : pick[6] === "golem" || pick[6] === "knight" ? "heavy" : rare ? "rare" : "chaser",
+      cooldown: 0.8 + Math.random() * 1.4,
       hit: 0,
     });
   }
@@ -552,6 +649,10 @@
     state.attackTimer = Math.max(0, state.attackTimer - dt);
     state.magicCooldown = Math.max(0, state.magicCooldown - dt);
     state.magicTimer = Math.max(0, state.magicTimer - dt);
+    state.dashCooldown = Math.max(0, state.dashCooldown - dt);
+    state.dashTimer = Math.max(0, state.dashTimer - dt);
+    state.comboTimer = Math.max(0, state.comboTimer - dt);
+    if (state.comboTimer <= 0) state.combo = 0;
     state.player.invuln = Math.max(0, state.player.invuln - dt);
     if (toastTimer > 0) {
       toastTimer -= dt;
@@ -562,7 +663,7 @@
     updateBoss(dt);
     updateParticles(dt);
     updatePickups(dt);
-    if (!state.boss && state.enemies.length <= 2) spawnBoss();
+    if (!state.boss && state.enemies.length <= 2) advanceStagePressure();
     updateHud();
   }
 
@@ -583,25 +684,50 @@
       p.dirX = mx;
       p.dirY = my;
     }
-    p.x = clamp(p.x + mx * state.hero.speed * dt, 32, W - 32);
-    p.y = clamp(p.y + my * state.hero.speed * dt, 58, H - 38);
+    const dashBoost = state.dashTimer > 0 ? 2.25 : 1;
+    p.x = clamp(p.x + mx * state.hero.speed * dashBoost * dt, 32, W - 32);
+    p.y = clamp(p.y + my * state.hero.speed * dashBoost * dt, 58, H - 38);
+    if (state.dashTimer > 0) lungeEffect(p.x, p.y, Math.atan2(-p.dirY, -p.dirX), state.hero.aura);
   }
 
   function updateEnemies(dt) {
     const p = state.player;
     for (const e of state.enemies) {
       e.hit = Math.max(0, e.hit - dt);
+      e.cooldown = Math.max(0, e.cooldown - dt);
       const dx = p.x - e.x;
       const dy = p.y - e.y;
       const d = Math.hypot(dx, dy) || 1;
       const flee = e.rare && d < 170 ? -1 : 1;
-      e.x += (dx / d) * e.speed * dt * flee;
-      e.y += (dy / d) * e.speed * dt * flee;
+      const heavyMod = e.behavior === "heavy" ? 0.68 : 1;
+      const keepDistance = e.behavior === "shooter" && d < 180 ? -0.45 : 1;
+      e.x += (dx / d) * e.speed * dt * flee * heavyMod * keepDistance;
+      e.y += (dy / d) * e.speed * dt * flee * heavyMod * keepDistance;
       e.x = clamp(e.x, 30, W - 30);
       e.y = clamp(e.y, 55, H - 35);
+      if (e.behavior === "shooter" && e.cooldown <= 0 && d < 360) {
+        e.cooldown = 1.4 + Math.random() * 1.2;
+        enemyProjectile(e, dx / d, dy / d);
+      }
       if (d < p.r + e.r && p.invuln <= 0) damagePlayer(e.atk);
     }
     state.enemies = state.enemies.filter((e) => e.hp > 0);
+  }
+
+  function enemyProjectile(enemy, dx, dy) {
+    state.particles.push({
+      type: "hazard",
+      x: enemy.x,
+      y: enemy.y,
+      vx: dx * 180,
+      vy: dy * 180,
+      r: 6,
+      life: 1.4,
+      maxLife: 1.4,
+      color: enemy.rare ? "#fff48a" : "#b276ff",
+      damage: enemy.atk * 0.72,
+    });
+    playSfx("blast");
   }
 
   function updateBoss(dt) {
@@ -621,6 +747,29 @@
     const d = Math.hypot(state.player.x - b.x, state.player.y - b.y);
     if (d < state.player.r + b.r * 0.72 && state.player.invuln <= 0) damagePlayer(b.atk);
     if (b.hp <= 0) defeatBoss();
+  }
+
+  function advanceStagePressure() {
+    if (state.stageWave < 2) {
+      state.stageWave += 1;
+      const reinforcements = 4 + state.stage;
+      for (let i = 0; i < reinforcements; i += 1) spawnEnemy(false);
+      if (Math.random() < 0.55) spawnEnemy(true);
+      state.cameraShake = 8;
+      toastMessage(`精鋭ウェーブ ${state.stageWave}! コンボを切らすな!`);
+      playSfx("wave");
+      return;
+    }
+    spawnBoss();
+  }
+
+  function dash() {
+    if (state.screen !== "game" || activeQuiz || state.dashCooldown > 0) return;
+    state.dashTimer = 0.18;
+    state.dashCooldown = 0.85;
+    state.player.invuln = Math.max(state.player.invuln, 0.2);
+    state.cameraShake = 4;
+    playSfx("dash");
   }
 
   function bossAttack(b) {
@@ -683,20 +832,28 @@
   function attack() {
     if (state.screen !== "game" || activeQuiz || state.attackCooldown > 0) return;
     state.attackDuration = state.hero.design.weapon === "greatsword" ? 0.42 : 0.32;
-    state.attackCooldown = state.attackDuration * 0.82;
+    const comboWindowOpen = state.comboTimer > 0;
+    state.combo = comboWindowOpen ? Math.min(3, state.combo + 1) : 1;
+    state.comboTimer = 1.15;
+    state.attackCooldown = Math.max(0.16, state.attackDuration * (0.86 - state.combo * 0.08));
     state.attackTimer = state.attackDuration;
     state.attackCombo = (state.attackCombo + 1) % 3;
     const p = state.player;
     const baseAngle = Math.atan2(p.dirY, p.dirX);
     state.attackAngle = baseAngle;
     const ranged = state.hero.design.weapon === "bow" || state.hero.design.weapon === "bowblade";
-    const range = ranged ? 160 : state.hero.design.weapon === "greatsword" ? 108 : 88;
+    const range = (ranged ? 160 : state.hero.design.weapon === "greatsword" ? 108 : 88) + state.combo * 8;
     const cx = p.x + p.dirX * range * 0.52;
     const cy = p.y + p.dirY * range * 0.52;
     slashEffect(p.x, p.y, baseAngle, range, state.hero.aura, state.hero.design.weapon);
     lungeEffect(p.x, p.y, baseAngle, state.hero.design.accent);
     playSfx("slash");
-    hitEnemies(cx, cy, range, state.hero.attack + p.level * 4, false);
+    hitEnemies(cx, cy, range, state.hero.attack + p.level * 4 + state.combo * 8, false);
+    if (state.combo >= 3) {
+      state.cameraShake = 10;
+      burst(cx, cy, "#fff7a8", 34, 2.8);
+      toastMessage("3連コンボ!");
+    }
   }
 
   function castMagic() {
@@ -721,7 +878,8 @@
   function hitEnemies(x, y, range, damage, magic) {
     for (const e of state.enemies) {
       if (Math.hypot(e.x - x, e.y - y) < range + e.r) {
-        e.hp -= damage;
+        const comboBonus = 1 + Math.min(state.combo, 12) * 0.035;
+        e.hp -= damage * comboBonus;
         e.hit = 0.18;
         burst(e.x, e.y, e.rare ? "#fff3a4" : e.color, magic ? 18 : 10, magic ? 2 : 1.3);
         if (e.hp <= 0) defeatEnemy(e);
@@ -739,10 +897,14 @@
 
   function defeatEnemy(e) {
     state.kills += 1;
+    state.combo += 1;
+    state.comboTimer = 3.2;
     if (e.rare) {
       state.rareKills += 1;
       toastMessage("レアモンスター撃破! 大量経験値!");
       state.cameraShake = 12;
+    } else if (state.combo >= 3) {
+      toastMessage(`${state.combo} COMBO! ダメージアップ!`);
     }
     gainXp(e.xp);
     if (Math.random() < 0.28) {
@@ -1350,11 +1512,50 @@
   function drawHeroPortrait(targetCtx, hero, scale) {
     targetCtx.imageSmoothingEnabled = false;
     targetCtx.clearRect(0, 0, 120, 120);
+    if (drawTransparentSprite(targetCtx, "heroes", hero.spriteKey, 60, 92, 2.7 * scale, 0, false)) return;
     if (drawLibrarySprite(targetCtx, hero.spriteKey, 60, 96, 1.55 * scale, 0, false)) return;
     targetCtx.save();
     targetCtx.translate(60, 68);
     drawHeroFigure(targetCtx, hero, 0, 0, 1.7 * scale, -Math.PI / 6, true);
     targetCtx.restore();
+  }
+
+  function getTransparentSprite(group, key) {
+    if (group === "heroes") return spriteImages.heroes[key] || null;
+    if (group === "enemies") return spriteImages.enemies[key] || null;
+    if (group === "effects") return spriteImages.effects[key] || null;
+    return null;
+  }
+
+  function drawTransparentSprite(target, group, key, x, y, scale, angle, flip) {
+    const image = getTransparentSprite(group, key);
+    if (!image || !image.complete || image.naturalWidth === 0) return false;
+    target.save();
+    target.translate(x, y);
+    if (angle) target.rotate(angle);
+    target.scale(flip ? -scale : scale, scale);
+    target.imageSmoothingEnabled = false;
+    target.drawImage(image, -image.naturalWidth / 2, -image.naturalHeight, image.naturalWidth, image.naturalHeight);
+    target.restore();
+    return true;
+  }
+
+  function drawTransparentBossSprite(target, index, x, y, radius) {
+    const image = spriteImages.bosses[index];
+    if (!image || !image.complete || image.naturalWidth === 0) return false;
+    const scale = Math.min(2.4, Math.max((radius * 1.8) / image.naturalWidth, (radius * 1.3) / image.naturalHeight));
+    target.save();
+    target.translate(x, y + 10);
+    target.imageSmoothingEnabled = false;
+    target.drawImage(
+      image,
+      (-image.naturalWidth * scale) / 2,
+      (-image.naturalHeight * scale) / 2,
+      image.naturalWidth * scale,
+      image.naturalHeight * scale,
+    );
+    target.restore();
+    return true;
   }
 
   function drawLibrarySprite(target, key, x, y, scale, angle, flip) {
@@ -1463,8 +1664,10 @@
       target.ellipse(0, 24, 24 + swing * 6, 8, 0, 0, TAU);
       target.fill();
     }
-    const spriteScale = portrait ? 1.15 * scale : 0.9 * scale;
-    drawLibrarySprite(target, hero.spriteKey, 0, portrait ? 34 : 26, spriteScale, 0, false);
+    const spriteScale = portrait ? 2.25 * scale : 1.32 * scale;
+    if (!drawTransparentSprite(target, "heroes", hero.spriteKey, 0, portrait ? 38 : 30, spriteScale, 0, false)) {
+      drawLibrarySprite(target, hero.spriteKey, 0, portrait ? 34 : 26, portrait ? 1.15 * scale : 0.9 * scale, 0, false);
+    }
     if (attackProgress > 0) drawSpriteWeaponOverlay(target, hero.design.weapon, hero.design.accent, angle, attackProgress, portrait);
     if (magicProgress > 0) drawCastingAura(target, hero.design.accent, magicProgress);
     target.restore();
@@ -1839,7 +2042,12 @@
       ctx.save();
       ctx.translate(e.x, e.y + Math.sin(state.time * 6 + e.x) * 2);
       ctx.globalAlpha = e.hit > 0 ? 0.72 : 1;
-      if (assetLibrary.ready && drawLibrarySprite(ctx, e.spriteKey, 0, 0, e.rare ? 0.92 : 0.72, 0, false)) {
+      if (drawTransparentSprite(ctx, "enemies", e.spriteKey, 0, 22, e.rare ? 1.15 : 1.0, 0, false)) {
+        ctx.fillStyle = "rgba(0,0,0,0.24)";
+        ctx.beginPath();
+        ctx.ellipse(0, 22, e.r + 10, 7, 0, 0, TAU);
+        ctx.fill();
+      } else if (assetLibrary.ready && drawLibrarySprite(ctx, e.spriteKey, 0, 0, e.rare ? 0.92 : 0.72, 0, false)) {
         ctx.fillStyle = "rgba(0,0,0,0.24)";
         ctx.beginPath();
         ctx.ellipse(0, 22, e.r + 10, 7, 0, 0, TAU);
@@ -2030,7 +2238,9 @@
     ctx.fillStyle = b.color;
     ctx.strokeStyle = b.aura;
     ctx.lineWidth = 8;
-    if (assetLibrary.ready && drawBossLibrarySprite(ctx, state.stage, 0, 0, b.r)) {
+    if (drawTransparentBossSprite(ctx, state.stage, 0, 0, b.r)) {
+      // Extracted transparent PNGs avoid rectangular panel backgrounds.
+    } else if (assetLibrary.ready && drawBossLibrarySprite(ctx, state.stage, 0, 0, b.r)) {
       // Submitted asset sheet is the primary source when available.
     } else if (b.name.includes("大蛇")) drawSerpentBoss(b);
     else if (b.name.includes("グリフォン")) drawGriffinBoss(b);
@@ -2173,9 +2383,20 @@
     ctx.fillStyle = "#ffe17a";
     ctx.font = "bold 16px sans-serif";
     ctx.fillText(`ともかクエスト - ${stageNames[state.stage]}`, 28, 37);
+    if (state.combo > 1) {
+      ctx.fillStyle = "#ff7bd5";
+      ctx.font = "bold 22px sans-serif";
+      ctx.fillText(`${state.combo} COMBO`, 390, 38);
+    }
+    if (state.dashCooldown <= 0) {
+      ctx.fillStyle = "#9dffcd";
+      ctx.font = "bold 13px sans-serif";
+      ctx.fillText("Shift: ダッシュOK", 520, 37);
+    }
     if (!state.boss) {
       ctx.fillStyle = "#fff8d5";
-      ctx.fillText("敵をあと少し倒すとボス出現!", 412, 37);
+      ctx.font = "bold 14px sans-serif";
+      ctx.fillText(`Wave ${state.stageWave}/2`, 650, 37);
     }
     drawPartyHud();
     ctx.restore();
@@ -2239,7 +2460,20 @@
 
   function slashEffect(x, y, angle, range, color, weapon) {
     const wide = weapon === "greatsword" || weapon === "longsword" || weapon === "bowblade";
-    if (assetLibrary.ready) {
+    if (isSpriteReady(spriteImages.effects.slash)) {
+      const key = weapon === "dagger" || weapon === "greatsword" ? "dark" : "slash";
+      state.particles.push({
+        type: "assetEffect",
+        spriteKey: key,
+        x: x + Math.cos(angle) * range * 0.55,
+        y: y + Math.sin(angle) * range * 0.38,
+        angle,
+        r: wide ? 1.8 : 1.35,
+        life: 0.22,
+        maxLife: 0.22,
+        color,
+      });
+    } else if (assetLibrary.ready) {
       const key = weapon === "dagger" || weapon === "greatsword" ? "dark" : "slash";
       state.particles.push({
         type: "assetEffect",
@@ -2303,6 +2537,24 @@
     }
   }
 
+  function magicCastEffect(fromX, fromY, toX, toY, color) {
+    for (let i = 0; i < 22; i += 1) {
+      const t = i / 21;
+      const wave = Math.sin(t * Math.PI) * 36;
+      const angle = Math.atan2(toY - fromY, toX - fromX) + Math.PI / 2;
+      state.particles.push({
+        x: fromX + (toX - fromX) * t + Math.cos(angle) * wave,
+        y: fromY + (toY - fromY) * t + Math.sin(angle) * wave,
+        vx: 0,
+        vy: -15,
+        r: 3 + Math.sin(t * Math.PI) * 5,
+        life: 0.36 + t * 0.12,
+        maxLife: 0.48,
+        color,
+      });
+    }
+  }
+
   function burst(x, y, color, count, power) {
     for (let i = 0; i < count; i += 1) {
       const a = Math.random() * TAU;
@@ -2361,7 +2613,7 @@
     }
     try {
       const data = JSON.parse(raw);
-      const hero = heroes.find((h) => h.id === data.heroId) || heroes[0];
+      const hero = getSelectableHeroes().find((h) => h.id === data.heroId) || getSelectableHeroes()[0];
       startGame(hero, data);
       return true;
     } catch (error) {
@@ -2387,12 +2639,11 @@
     let musicTimer = null;
     let step = 0;
     const stageThemes = [
-      { root: 220, scale: [0, 2, 4, 7, 9, 12, 14, 16], mood: "triangle" },
-      { root: 196, scale: [0, 2, 5, 7, 9, 12, 14, 17], mood: "triangle" },
-      { root: 174.61, scale: [0, 3, 5, 7, 10, 12, 15, 17], mood: "sawtooth" },
-      { root: 246.94, scale: [0, 2, 4, 7, 11, 12, 14, 16], mood: "sine" },
-      { root: 207.65, scale: [0, 2, 4, 6, 7, 9, 12, 14], mood: "triangle" },
-      { root: 164.81, scale: [0, 3, 5, 6, 7, 10, 12, 15], mood: "sawtooth" },
+      { root: 220, scale: [0, 2, 4, 7, 9, 12, 14, 16], mood: "triangle", tempo: 185 },
+      { root: 174.61, scale: [0, 3, 5, 7, 10, 12, 15, 17], mood: "sawtooth", tempo: 170 },
+      { root: 246.94, scale: [0, 2, 4, 7, 11, 12, 14, 16], mood: "sine", tempo: 195 },
+      { root: 207.65, scale: [0, 2, 4, 6, 7, 9, 12, 14], mood: "triangle", tempo: 180 },
+      { root: 164.81, scale: [0, 3, 5, 6, 7, 10, 12, 15], mood: "sawtooth", tempo: 165 },
     ];
 
     function note(root, semitone) {
@@ -2456,14 +2707,16 @@
       }
       if (beat % 2 === 0) tone(note(root, theme.scale[melodyIndex % theme.scale.length] + 12), 0.28, theme.mood, 0.026, now + 0.02);
       if (beat === 3 || beat === 7 || beat === 11 || beat === 15) tone(note(root, -5), 0.08, "square", 0.012, now);
+      if (beat % 4 === 2) tone(note(root, theme.scale[(melodyIndex + 3) % theme.scale.length] + 19), 0.16, "sine", 0.014, now + 0.09);
       if (beat === 0 || beat === 8) noise(0.045, 0.018, now);
+      if (beat === 4 || beat === 12) noise(0.035, 0.011, now);
       step += 1;
     }
 
     audio = {
       ensure() {
         if (ac.state === "suspended") ac.resume();
-        if (!musicTimer) musicTimer = setInterval(playMusicStep, 210);
+        if (!musicTimer) musicTimer = setInterval(playMusicStep, 175);
       },
       sfx(kind) {
         if (ac.state === "suspended") return;
@@ -2482,6 +2735,8 @@
           boss: [82, 0.62, "sawtooth", 0.085],
           blast: [155, 0.24, "square", 0.042],
           clear: [1046, 0.62, "triangle", 0.09],
+          dash: [520, 0.08, "triangle", 0.045],
+          wave: [330, 0.3, "sawtooth", 0.06],
         };
         const args = map[kind] || map.hit;
         tone(args[0], args[1], args[2], args[3], now);
@@ -2489,7 +2744,8 @@
           tone(args[0] * 1.5, args[1] * 0.75, "sine", args[3] * 0.62, now + 0.05);
           tone(args[0] * 2, args[1] * 0.55, "triangle", args[3] * 0.4, now + 0.1);
         }
-        if (kind === "blast" || kind === "boss") noise(0.16, 0.035, now);
+        if (kind === "blast" || kind === "boss" || kind === "wave") noise(0.16, 0.035, now);
+        if (kind === "dash") tone(args[0] * 1.8, 0.05, "sine", 0.03, now + 0.02);
       },
     };
     audio.ensure();
@@ -2519,6 +2775,7 @@
         attack();
       }
       if (event.code === "KeyQ") castMagic();
+      if (event.code === "ShiftLeft" || event.code === "ShiftRight") dash();
     });
     window.addEventListener("keyup", (event) => keys.delete(event.code));
     canvas.addEventListener("pointerdown", (event) => {

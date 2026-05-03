@@ -65,24 +65,47 @@ def specs_for_image(size: tuple[int, int]) -> list[SpriteSpec]:
 
 
 def clean_edge_sheet_specs() -> list[SpriteSpec]:
-    """Approximate manifest for the new wide clean-edge sheet.
-
-    The current cloud workspace does not include this image yet, but this
-    manifest is ready for the provided clean-edge layout:
-    four protagonists on the left and four monsters on the right.
-    """
+    """Manifest for the 1292x620 clean-edge sheet (`image_17.png`)."""
 
     h = ROOT / "assets" / "sprites" / "heroes"
     e = ROOT / "assets" / "sprites" / "enemies"
+    b = ROOT / "assets" / "sprites" / "bosses"
+    fx = ROOT / "assets" / "sprites" / "effects"
     return [
-        SpriteSpec("leon", (42, 104, 105, 159), h / "leon.png", 28),
-        SpriteSpec("allen", (394, 107, 106, 155), h / "allen.png", 28),
-        SpriteSpec("lulu", (43, 326, 106, 150), h / "lulu.png", 28),
-        SpriteSpec("tina", (398, 322, 104, 154), h / "tina.png", 28),
-        SpriteSpec("slime", (777, 119, 61, 54), e / "slime.png", 30),
-        SpriteSpec("shiny_slime", (910, 118, 65, 56), e / "shiny_slime.png", 30),
-        SpriteSpec("goblin", (777, 195, 72, 74), e / "goblin.png", 30),
-        SpriteSpec("gold_mushroom", (900, 195, 75, 72), e / "gold_mushroom.png", 30),
+        SpriteSpec("leon", (140, 102, 128, 58), h / "leon.png", 18),
+        SpriteSpec("allen", (140, 226, 128, 58), h / "allen.png", 18),
+        SpriteSpec("lulu", (140, 360, 128, 58), h / "lulu.png", 18),
+        SpriteSpec("tina", (140, 489, 128, 58), h / "tina.png", 18),
+        SpriteSpec("slime", (532, 282, 42, 29), e / "slime.png", 14),
+        SpriteSpec("shiny_slime", (985, 282, 43, 34), e / "shiny_slime.png", 14),
+        SpriteSpec("goblin", (692, 269, 50, 50), e / "goblin.png", 14),
+        SpriteSpec("gold_mushroom", (1087, 272, 44, 45), e / "gold_mushroom.png", 14),
+        SpriteSpec("mushroom", (612, 276, 42, 39), e / "mushroom.png", 14),
+        SpriteSpec("bat", (766, 274, 52, 34), e / "bat.png", 14),
+        SpriteSpec("wolf", (838, 268, 50, 46), e / "wolf.png", 14),
+        SpriteSpec("golem", (916, 268, 52, 48), e / "golem.png", 14),
+        SpriteSpec("ghost", (627, 291, 42, 42), e / "ghost.png", 22),
+        SpriteSpec("mimic", (708, 290, 46, 43), e / "mimic.png", 22),
+        SpriteSpec("lizard", (532, 346, 42, 45), e / "lizard.png", 22),
+        SpriteSpec("bee", (790, 347, 46, 42), e / "bee.png", 22),
+        SpriteSpec("cactus", (610, 347, 42, 44), e / "cactus.png", 22),
+        SpriteSpec("snowman", (670, 347, 44, 45), e / "snowman.png", 22),
+        SpriteSpec("dragon", (708, 347, 46, 43), e / "dragon.png", 22),
+        SpriteSpec("knight", (825, 347, 44, 44), e / "knight.png", 22),
+        SpriteSpec("mage", (882, 347, 44, 44), e / "mage.png", 22),
+        SpriteSpec("crab", (973, 347, 44, 42), e / "crab.png", 22),
+        SpriteSpec("doll", (1032, 347, 42, 43), e / "doll.png", 22),
+        SpriteSpec("flower", (1088, 347, 44, 43), e / "flower.png", 22),
+        SpriteSpec("rare_slime", (977, 275, 52, 48), e / "rare_slime.png", 22),
+        SpriteSpec("rare_mushroom", (1085, 275, 56, 48), e / "rare_mushroom.png", 22),
+        SpriteSpec("vine_serpent", (529, 88, 118, 78), b / "vine_serpent.png", 26),
+        SpriteSpec("magma_golem", (665, 88, 112, 78), b / "magma_golem.png", 26),
+        SpriteSpec("aqua_dragon", (805, 86, 120, 82), b / "aqua_dragon.png", 26),
+        SpriteSpec("sand_scorpion", (920, 86, 122, 82), b / "sand_scorpion.png", 26),
+        SpriteSpec("black_star", (1050, 86, 122, 82), b / "black_star.png", 26),
+        SpriteSpec("slash", (1130, 367, 34, 34), fx / "slash.png", 28),
+        SpriteSpec("dark_slash", (1172, 367, 34, 34), fx / "dark_slash.png", 28),
+        SpriteSpec("burst", (1214, 367, 34, 34), fx / "burst.png", 28),
     ]
 
 
