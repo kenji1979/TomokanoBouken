@@ -35,159 +35,246 @@
 
   const heroes = [
     {
-      id: "prince",
+      id: "blue-swordsman",
       name: "イケメン剣士 レオン",
-      label: "王道・高速剣技",
-      desc: "青いマントと光の剣を持つ、まっすぐな王子タイプ。",
-      color: "#5fbdfd",
+      label: "青髪・赤マント・王道剣士",
+      desc: "青い髪と赤いマントの主人公。軽快な剣さばきで前線を切り開く。",
+      color: "#3d8dff",
       aura: "#fff08a",
-      speed: 190,
-      maxHp: 150,
-      maxMp: 60,
-      attack: 27,
-      magic: 42,
+      speed: 195,
+      maxHp: 152,
+      maxMp: 58,
+      attack: 28,
+      magic: 40,
       special: "スターライトスラッシュ",
       icon: "剣",
       design: {
-        skin: "#f2c097",
-        hair: "#24335f",
-        hair2: "#6ac7ff",
-        outfit: "#2c65d8",
-        cape: "#f6f0d0",
-        accent: "#ffe17a",
-        eyes: "#3cc8ff",
+        skin: "#f0b58c",
+        hair: "#1f69c8",
+        hair2: "#79d2ff",
+        outfit: "#2e75d6",
+        cape: "#b83232",
+        accent: "#ffd75a",
+        eyes: "#1b4eff",
         weapon: "sword",
         mood: "brave",
+        trim: "#d9ecff",
       },
     },
     {
-      id: "mira",
-      name: "かわいい魔法剣士 ミラ",
-      label: "剣と魔法の万能型",
-      desc: "ピンクの髪飾りと小さな杖剣で、明るく戦うヒロイン。",
-      color: "#ff83c8",
-      aura: "#a6fffa",
-      speed: 180,
-      maxHp: 135,
-      maxMp: 82,
+      id: "red-silver-sword",
+      name: "イケメン銀剣士 アレン",
+      label: "赤髪・銀剣・技巧派",
+      desc: "赤い髪と白銀の剣が目印。リーチの長い連撃が得意。",
+      color: "#e85858",
+      aura: "#e9f3ff",
+      speed: 188,
+      maxHp: 146,
+      maxMp: 64,
+      attack: 30,
+      magic: 42,
+      special: "シルバーレイヴ",
+      icon: "銀",
+      design: {
+        skin: "#f4bd96",
+        hair: "#d43b3b",
+        hair2: "#ff8b72",
+        outfit: "#7c4ad8",
+        cape: "#f0e8ff",
+        accent: "#f5f8ff",
+        eyes: "#6d33ff",
+        weapon: "longsword",
+        mood: "cool",
+        trim: "#ffd76b",
+      },
+    },
+    {
+      id: "pink-mage-sword",
+      name: "かわいい女子魔法剣士 ルル",
+      label: "桃髪・花飾り・魔法剣",
+      desc: "花のような衣装の魔法剣士。かわいさと魔法火力を両立する。",
+      color: "#ff78bd",
+      aura: "#ffd7f1",
+      speed: 181,
+      maxHp: 136,
+      maxMp: 86,
       attack: 23,
-      magic: 52,
+      magic: 54,
       special: "ハートフレア",
       icon: "花",
       design: {
         skin: "#ffd0aa",
-        hair: "#ff7fb7",
-        hair2: "#ffd7ed",
-        outfit: "#ff4fa4",
-        cape: "#fff4ff",
-        accent: "#78f8ff",
-        eyes: "#7d3cff",
-        weapon: "wand",
+        hair: "#ef5fae",
+        hair2: "#ffd56f",
+        outfit: "#f0529f",
+        cape: "#72d86f",
+        accent: "#ffe46b",
+        eyes: "#8a35ff",
+        weapon: "wandblade",
         mood: "smile",
+        trim: "#ffffff",
       },
     },
     {
-      id: "noa",
+      id: "blonde-mage-sword",
+      name: "かわいい女子魔法剣士 ティナ",
+      label: "金髪ツイン・杖剣・回復寄り",
+      desc: "明るい金髪とピンクの杖剣。仲間を支えながら戦える。",
+      color: "#ffb7d9",
+      aura: "#a6fffa",
+      speed: 176,
+      maxHp: 132,
+      maxMp: 92,
+      attack: 21,
+      magic: 58,
+      special: "プリズムブルーム",
+      icon: "杖",
+      design: {
+        skin: "#ffd6b0",
+        hair: "#f3c65b",
+        hair2: "#fff2a8",
+        outfit: "#ff8ac8",
+        cape: "#f9fff5",
+        accent: "#56e3d8",
+        eyes: "#278cff",
+        weapon: "wand",
+        mood: "smile",
+        trim: "#7eea78",
+      },
+    },
+    {
+      id: "fallen-girl",
       name: "闇落ち女子 ノア",
-      label: "闇魔法・連続攻撃",
-      desc: "片目に闇の紋章を宿す少女。紫の刃で素早く斬る。",
+      label: "紫髪・闇オーラ・双刃",
+      desc: "闇の力をまとった少女。紫の残像を出しながら素早く斬る。",
       color: "#9a69ff",
       aura: "#20112f",
-      speed: 205,
+      speed: 208,
       maxHp: 128,
-      maxMp: 78,
-      attack: 25,
-      magic: 56,
+      maxMp: 80,
+      attack: 26,
+      magic: 58,
       special: "ダークムーン",
       icon: "闇",
       design: {
         skin: "#e8bca1",
-        hair: "#17111f",
-        hair2: "#8b55ff",
-        outfit: "#3b204f",
-        cape: "#121018",
+        hair: "#7432a8",
+        hair2: "#ef62ff",
+        outfit: "#261436",
+        cape: "#090712",
         accent: "#ff4c91",
         eyes: "#f149ff",
         weapon: "dagger",
         mood: "dark",
+        trim: "#7440ff",
       },
     },
     {
-      id: "shade",
-      name: "ダークヒーロー シェイド",
-      label: "高火力・大剣",
-      desc: "黒い外套と赤い大剣。無口だが仲間を守る影の英雄。",
+      id: "dark-hero",
+      name: "ダークヒーロー グレイヴ",
+      label: "黒鎧・大剣・重火力",
+      desc: "重い黒鎧と大剣を持つ影の英雄。遅いが一撃が強い。",
       color: "#4b5268",
       aura: "#f14972",
-      speed: 165,
-      maxHp: 170,
+      speed: 164,
+      maxHp: 174,
       maxMp: 52,
-      attack: 34,
+      attack: 36,
       magic: 38,
       special: "ブラックインパクト",
-      icon: "影",
+      icon: "鎧",
       design: {
-        skin: "#c99577",
-        hair: "#101522",
-        hair2: "#70778d",
+        skin: "#b9876b",
+        hair: "#121722",
+        hair2: "#6f748a",
         outfit: "#202738",
-        cape: "#090b12",
+        cape: "#070911",
         accent: "#ff355f",
         eyes: "#ff445f",
         weapon: "greatsword",
         mood: "cool",
+        trim: "#7f879c",
       },
     },
     {
-      id: "archer",
-      name: "弓使い女子 リン",
-      label: "遠距離・安全",
-      desc: "緑のフードと星の弓で、遠くから仲間を支える。",
-      color: "#7dff9b",
-      aura: "#d7ff6d",
-      speed: 198,
-      maxHp: 130,
-      maxMp: 68,
-      attack: 24,
-      magic: 44,
-      special: "シャイニングアロー",
-      icon: "弓",
-      design: {
-        skin: "#efba8b",
-        hair: "#75411d",
-        hair2: "#e6a44f",
-        outfit: "#2f9c63",
-        cape: "#184f3a",
-        accent: "#d7ff6d",
-        eyes: "#36e092",
-        weapon: "bow",
-        mood: "focus",
-      },
-    },
-    {
-      id: "kid",
-      name: "元気な冒険者 ソラ",
-      label: "初心者向け",
-      desc: "オレンジのバンダナが目印。明るくタフな冒険好き。",
-      color: "#ffb14a",
+      id: "boy-adventurer",
+      name: "元気な少年冒険者 ソラ",
+      label: "茶髪・青服・初心者向け",
+      desc: "青い冒険服の少年。扱いやすく、連続攻撃も素直に出せる。",
+      color: "#56b9ff",
       aura: "#fff4c7",
-      speed: 185,
-      maxHp: 165,
+      speed: 186,
+      maxHp: 166,
       maxMp: 64,
-      attack: 26,
+      attack: 27,
       magic: 43,
       special: "ブレイブスマッシュ",
       icon: "星",
       design: {
         skin: "#f0b489",
-        hair: "#5b341b",
+        hair: "#b45f2c",
         hair2: "#ffb14a",
-        outfit: "#ef7135",
+        outfit: "#45a7e8",
         cape: "#ffe39a",
-        accent: "#58c7ff",
+        accent: "#ef7135",
         eyes: "#2f7cff",
         weapon: "shortsword",
         mood: "smile",
+        trim: "#ffffff",
+      },
+    },
+    {
+      id: "cool-archer",
+      name: "クールな弓使い女子 リン",
+      label: "黒フード・弓・遠距離",
+      desc: "黒いフードと弓を使うクールな女子。距離を取りながら戦う。",
+      color: "#526071",
+      aura: "#d7ff6d",
+      speed: 198,
+      maxHp: 132,
+      maxMp: 70,
+      attack: 25,
+      magic: 44,
+      special: "シャイニングアロー",
+      icon: "弓",
+      design: {
+        skin: "#d0a080",
+        hair: "#252a38",
+        hair2: "#59627c",
+        outfit: "#2f3548",
+        cape: "#111521",
+        accent: "#a9ff5f",
+        eyes: "#76ffcf",
+        weapon: "bow",
+        mood: "focus",
+        trim: "#7d879d",
+      },
+    },
+    {
+      id: "rose-archer",
+      name: "クールアーチャー ロゼ",
+      label: "桃鎧・弓剣・派手エフェクト",
+      desc: "ピンクの鎧と大きな弓剣を使う華やかなアーチャー。",
+      color: "#ff6fc0",
+      aura: "#ffef7a",
+      speed: 192,
+      maxHp: 140,
+      maxMp: 76,
+      attack: 26,
+      magic: 50,
+      special: "ローズシュート",
+      icon: "矢",
+      design: {
+        skin: "#ffd0aa",
+        hair: "#e85b9f",
+        hair2: "#ffc0ea",
+        outfit: "#bd4fb4",
+        cape: "#31234a",
+        accent: "#ffd75a",
+        eyes: "#5a40ff",
+        weapon: "bowblade",
+        mood: "cool",
+        trim: "#ffffff",
       },
     },
   ];
@@ -250,7 +337,12 @@
     quizzesSolved: 0,
     bossDefeated: 0,
     attackCooldown: 0,
+    attackTimer: 0,
+    attackDuration: 0.32,
+    attackAngle: 0,
+    attackCombo: 0,
     magicCooldown: 0,
+    magicTimer: 0,
     mobile: { x: 0, y: 0, active: false },
   };
 
@@ -370,7 +462,9 @@
     if (state.screen !== "game" || activeQuiz) return;
     state.time += dt;
     state.attackCooldown = Math.max(0, state.attackCooldown - dt);
+    state.attackTimer = Math.max(0, state.attackTimer - dt);
     state.magicCooldown = Math.max(0, state.magicCooldown - dt);
+    state.magicTimer = Math.max(0, state.magicTimer - dt);
     state.player.invuln = Math.max(0, state.player.invuln - dt);
     if (toastTimer > 0) {
       toastTimer -= dt;
@@ -501,12 +595,19 @@
 
   function attack() {
     if (state.screen !== "game" || activeQuiz || state.attackCooldown > 0) return;
-    state.attackCooldown = 0.36;
+    state.attackDuration = state.hero.design.weapon === "greatsword" ? 0.42 : 0.32;
+    state.attackCooldown = state.attackDuration * 0.82;
+    state.attackTimer = state.attackDuration;
+    state.attackCombo = (state.attackCombo + 1) % 3;
     const p = state.player;
-    const range = state.hero.id === "archer" ? 145 : 78;
-    const cx = p.x + p.dirX * range * 0.55;
-    const cy = p.y + p.dirY * range * 0.55;
-    slashEffect(cx, cy, state.hero.aura);
+    const baseAngle = Math.atan2(p.dirY, p.dirX);
+    state.attackAngle = baseAngle;
+    const ranged = state.hero.design.weapon === "bow" || state.hero.design.weapon === "bowblade";
+    const range = ranged ? 160 : state.hero.design.weapon === "greatsword" ? 108 : 88;
+    const cx = p.x + p.dirX * range * 0.52;
+    const cy = p.y + p.dirY * range * 0.52;
+    slashEffect(p.x, p.y, baseAngle, range, state.hero.aura, state.hero.design.weapon);
+    lungeEffect(p.x, p.y, baseAngle, state.hero.design.accent);
     playSfx("slash");
     hitEnemies(cx, cy, range, state.hero.attack + p.level * 4, false);
   }
@@ -520,10 +621,12 @@
     }
     p.mp -= 12;
     state.magicCooldown = 0.75;
+    state.magicTimer = 0.55;
     const cx = p.x + p.dirX * 105;
     const cy = p.y + p.dirY * 105;
-    state.cameraShake = 5;
-    burst(cx, cy, state.hero.aura, 44, 3.2);
+    state.cameraShake = 7;
+    magicCastEffect(p.x, p.y, cx, cy, state.hero.aura);
+    burst(cx, cy, state.hero.aura, 54, 3.4);
     playSfx("magic");
     hitEnemies(cx, cy, 125, state.hero.magic + p.level * 6, true);
   }
@@ -1192,28 +1295,36 @@
 
   function drawHeroFigure(target, hero, x, y, scale, angle, portrait, companion) {
     const d = hero.design;
+    const isPlayer = !portrait && !companion && state.hero && hero.id === state.hero.id;
+    const attackProgress = isPlayer && state.attackTimer > 0 ? 1 - state.attackTimer / state.attackDuration : 0;
+    const magicProgress = isPlayer && state.magicTimer > 0 ? 1 - state.magicTimer / 0.55 : 0;
+    const swing = attackProgress > 0 ? Math.sin(attackProgress * Math.PI) : 0;
+    const windup = attackProgress > 0 && attackProgress < 0.38 ? -1 : 1;
     const bob = portrait ? 0 : Math.sin(state.time * 8 + x * 0.03) * 2;
+    const lunge = isPlayer ? swing * 10 : 0;
     target.save();
-    target.translate(x, y + bob);
-    target.scale(scale, scale);
+    target.translate(x + Math.cos(angle) * lunge, y + bob + Math.sin(angle) * lunge);
+    if (attackProgress > 0 && !portrait) target.rotate(Math.sin((attackProgress - 0.2) * Math.PI) * 0.1);
+    target.scale(scale * (1 + swing * 0.06), scale * (1 - swing * 0.03));
     target.shadowColor = "rgba(0,0,0,0.35)";
     target.shadowBlur = 0;
     target.fillStyle = "rgba(0,0,0,0.28)";
     target.beginPath();
-    target.ellipse(0, 31, 28, 11, 0, 0, TAU);
+    target.ellipse(0, 31, 30 + swing * 5, 11, 0, 0, TAU);
     target.fill();
     target.globalAlpha = companion ? 0.9 : 1;
 
-    drawHeroWeapon(target, d.weapon, d.accent, angle, portrait, true);
+    const pose = { attackProgress, magicProgress, swing, windup, angle };
+    drawHeroWeapon(target, d.weapon, d.accent, angle, portrait, true, pose);
 
     target.lineWidth = 4;
     target.strokeStyle = "rgba(48, 32, 28, 0.85)";
     target.fillStyle = d.cape;
     target.beginPath();
-    target.moveTo(-24, -2);
-    target.quadraticCurveTo(-34, 28, -16, 50);
+    target.moveTo(-24 - swing * 4, -2);
+    target.quadraticCurveTo(-34, 28 + swing * 4, -16, 50);
     target.quadraticCurveTo(0, 60, 22, 49);
-    target.quadraticCurveTo(32, 25, 24, -2);
+    target.quadraticCurveTo(32 + swing * 4, 25, 24 + swing * 4, -2);
     target.closePath();
     target.fill();
     target.stroke();
@@ -1222,35 +1333,21 @@
     roundRect(target, -22, -4, 44, 48, 12);
     target.fill();
     target.stroke();
+    target.fillStyle = d.trim || d.accent;
+    target.fillRect(-21, 10, 42, 5);
     target.fillStyle = d.accent;
     target.fillRect(-4, -2, 8, 45);
     target.beginPath();
     target.arc(0, 12, 8, 0, TAU);
     target.fill();
 
-    target.strokeStyle = "rgba(60,35,25,0.9)";
-    target.lineWidth = 8;
-    target.lineCap = "round";
-    target.beginPath();
-    target.moveTo(-19, 4);
-    target.quadraticCurveTo(-36, 12, -31, 30);
-    target.moveTo(19, 4);
-    target.quadraticCurveTo(36, 12, 31, 30);
-    target.stroke();
-    target.strokeStyle = d.skin;
-    target.lineWidth = 6;
-    target.beginPath();
-    target.moveTo(-19, 5);
-    target.quadraticCurveTo(-34, 13, -30, 29);
-    target.moveTo(19, 5);
-    target.quadraticCurveTo(34, 13, 30, 29);
-    target.stroke();
+    drawArms(target, d, pose, portrait);
 
     target.strokeStyle = "rgba(55,33,28,0.95)";
     target.lineWidth = 4;
     target.fillStyle = d.skin;
     target.beginPath();
-    target.ellipse(0, -30, 23, 25, 0, 0, TAU);
+    target.ellipse(0, -30 - swing * 2, 23, 25, 0, 0, TAU);
     target.fill();
     target.stroke();
 
@@ -1260,22 +1357,52 @@
     target.strokeStyle = "rgba(60,35,25,0.9)";
     target.lineWidth = 8;
     target.beginPath();
-    target.moveTo(-10, 39);
-    target.lineTo(-14, 58);
-    target.moveTo(10, 39);
-    target.lineTo(14, 58);
+    target.moveTo(-10 - swing * 2, 39);
+    target.lineTo(-15 - swing * 4, 58);
+    target.moveTo(10 + swing * 2, 39);
+    target.lineTo(15 + swing * 4, 58);
     target.stroke();
     target.strokeStyle = d.outfit;
     target.lineWidth = 5;
     target.beginPath();
-    target.moveTo(-10, 39);
-    target.lineTo(-14, 57);
-    target.moveTo(10, 39);
-    target.lineTo(14, 57);
+    target.moveTo(-10 - swing * 2, 39);
+    target.lineTo(-15 - swing * 4, 57);
+    target.moveTo(10 + swing * 2, 39);
+    target.lineTo(15 + swing * 4, 57);
     target.stroke();
 
-    drawHeroWeapon(target, d.weapon, d.accent, angle, portrait, false);
+    if (magicProgress > 0) drawCastingAura(target, d.accent, magicProgress);
+    drawHeroWeapon(target, d.weapon, d.accent, angle, portrait, false, pose);
     target.restore();
+  }
+
+  function drawArms(target, d, pose, portrait) {
+    const swing = portrait ? 0 : pose.swing;
+    const atk = portrait ? 0 : pose.attackProgress;
+    const lift = pose.magicProgress > 0 ? -18 * Math.sin(pose.magicProgress * Math.PI) : 0;
+    target.strokeStyle = "rgba(60,35,25,0.9)";
+    target.lineWidth = 8;
+    target.lineCap = "round";
+    target.beginPath();
+    target.moveTo(-19, 4);
+    target.quadraticCurveTo(-36 - swing * 6, 12 + lift, -31 - swing * 8, 30 + lift);
+    target.moveTo(19, 4);
+    target.quadraticCurveTo(34 + swing * 18, 6 - swing * 22 + lift, 42 + swing * 24, 22 - swing * 18 + lift);
+    target.stroke();
+    target.strokeStyle = d.skin;
+    target.lineWidth = 6;
+    target.beginPath();
+    target.moveTo(-19, 5);
+    target.quadraticCurveTo(-34 - swing * 6, 13 + lift, -30 - swing * 8, 29 + lift);
+    target.moveTo(19, 5);
+    target.quadraticCurveTo(32 + swing * 18, 7 - swing * 22 + lift, 40 + swing * 24, 21 - swing * 18 + lift);
+    target.stroke();
+    if (atk > 0.05) {
+      target.fillStyle = d.accent;
+      target.beginPath();
+      target.arc(41 + swing * 20, 20 - swing * 20, 5 + swing * 3, 0, TAU);
+      target.fill();
+    }
   }
 
   function drawHair(target, d) {
@@ -1333,40 +1460,68 @@
     target.stroke();
   }
 
-  function drawHeroWeapon(target, weapon, color, angle, portrait, behind) {
-    const isBehind = weapon === "bow" || weapon === "greatsword";
+  function drawHeroWeapon(target, weapon, color, angle, portrait, behind, pose) {
+    const isBehind = weapon === "bow" || weapon === "greatsword" || weapon === "bowblade";
     if (behind !== isBehind) return;
+    const swing = portrait || !pose ? 0 : pose.swing;
+    const progress = portrait || !pose ? 0 : pose.attackProgress;
+    const windup = pose ? pose.windup : 1;
     target.save();
     if (!portrait) target.rotate(angle);
+    if (progress > 0 && !portrait) {
+      const arc = -1.15 + progress * 2.45;
+      target.rotate(arc);
+      target.translate(8 * swing, -8 * swing * windup);
+    }
     target.strokeStyle = "rgba(40,25,25,0.9)";
     target.fillStyle = color;
     target.lineCap = "round";
-    if (weapon === "bow") {
-      target.lineWidth = 5;
+    if (weapon === "bow" || weapon === "bowblade") {
+      const big = weapon === "bowblade";
+      target.lineWidth = big ? 7 : 5;
       target.beginPath();
-      target.arc(39, 0, 28, -1.25, 1.25);
+      target.arc(41, 0, big ? 34 : 28, -1.25, 1.25);
       target.stroke();
       target.strokeStyle = color;
       target.lineWidth = 3;
       target.beginPath();
-      target.arc(39, 0, 25, -1.2, 1.2);
+      target.arc(41, 0, big ? 31 : 25, -1.2, 1.2);
       target.stroke();
       target.strokeStyle = "#fff4bd";
       target.beginPath();
-      target.moveTo(42, -27);
-      target.lineTo(42, 28);
+      target.moveTo(44, big ? -34 : -27);
+      target.lineTo(44, big ? 34 : 28);
       target.stroke();
-    } else if (weapon === "wand") {
+      if (big) {
+        target.strokeStyle = "#f8fbff";
+        target.lineWidth = 5;
+        target.beginPath();
+        target.moveTo(61, -18);
+        target.lineTo(78, -34);
+        target.moveTo(61, 18);
+        target.lineTo(78, 34);
+        target.stroke();
+      }
+    } else if (weapon === "wand" || weapon === "wandblade") {
       target.strokeStyle = "#6b3a2b";
-      target.lineWidth = 5;
+      target.lineWidth = weapon === "wandblade" ? 7 : 5;
       target.beginPath();
       target.moveTo(30, 20);
-      target.lineTo(54, -23);
+      target.lineTo(58, -28);
       target.stroke();
+      if (weapon === "wandblade") {
+        target.strokeStyle = "#f8fbff";
+        target.lineWidth = 5;
+        target.beginPath();
+        target.moveTo(52, -18);
+        target.lineTo(72, -42);
+        target.stroke();
+      }
       target.fillStyle = color;
-      drawStar(target, 56, -26, 11, 5);
+      drawStar(target, 60, -32, 11 + swing * 4, 5);
     } else {
-      const len = weapon === "greatsword" ? 66 : weapon === "dagger" ? 36 : 52;
+      const len = weapon === "greatsword" ? 78 : weapon === "dagger" ? 39 : weapon === "longsword" ? 64 : weapon === "shortsword" ? 46 : 56;
+      const bladeWidth = weapon === "greatsword" ? 12 : weapon === "dagger" ? 5 : 7;
       target.strokeStyle = "#6b4931";
       target.lineWidth = 8;
       target.beginPath();
@@ -1374,7 +1529,7 @@
       target.lineTo(29 + len, -20);
       target.stroke();
       target.strokeStyle = "#f8fbff";
-      target.lineWidth = weapon === "greatsword" ? 10 : 6;
+      target.lineWidth = bladeWidth;
       target.beginPath();
       target.moveTo(35, 12);
       target.lineTo(29 + len, -20);
@@ -1383,8 +1538,28 @@
       target.lineWidth = 3;
       target.beginPath();
       target.moveTo(38, 16);
-      target.lineTo(50, 23);
+      target.lineTo(52, 24);
       target.stroke();
+    }
+    target.restore();
+  }
+
+  function drawCastingAura(target, color, progress) {
+    target.save();
+    target.globalAlpha = Math.sin(progress * Math.PI) * 0.75;
+    target.strokeStyle = color;
+    target.lineWidth = 3;
+    for (let i = 0; i < 3; i += 1) {
+      target.beginPath();
+      target.arc(0, -5, 34 + i * 9 + progress * 12, 0, TAU);
+      target.stroke();
+    }
+    target.fillStyle = color;
+    for (let i = 0; i < 6; i += 1) {
+      const a = progress * TAU + (TAU * i) / 6;
+      target.beginPath();
+      target.arc(Math.cos(a) * 34, -5 + Math.sin(a) * 28, 3, 0, TAU);
+      target.fill();
     }
     target.restore();
   }
@@ -1789,17 +1964,53 @@
     ctx.strokeRect(x - width / 2, y, width, 7);
   }
 
-  function slashEffect(x, y, color) {
-    for (let i = 0; i < 24; i += 1) {
-      const a = state.time * 8 + (TAU * i) / 24;
+  function slashEffect(x, y, angle, range, color, weapon) {
+    const wide = weapon === "greatsword" || weapon === "longsword" || weapon === "bowblade";
+    const start = angle - (wide ? 1.35 : 1.05);
+    const end = angle + (wide ? 1.25 : 0.95);
+    for (let i = 0; i < 34; i += 1) {
+      const t = i / 33;
+      const a = start + (end - start) * t;
+      const radius = range * (0.38 + 0.45 * Math.sin(t * Math.PI));
       state.particles.push({
-        x,
-        y,
-        vx: Math.cos(a) * (40 + i * 4),
-        vy: Math.sin(a) * (40 + i * 4),
-        r: 4 + (i % 3),
-        life: 0.34,
-        maxLife: 0.34,
+        type: "slash",
+        x: x + Math.cos(a) * radius,
+        y: y + Math.sin(a) * radius * 0.72,
+        vx: Math.cos(a) * 32,
+        vy: Math.sin(a) * 32,
+        r: wide ? 8 + Math.sin(t * Math.PI) * 8 : 5 + Math.sin(t * Math.PI) * 6,
+        life: 0.22 + t * 0.08,
+        maxLife: 0.3,
+        color,
+      });
+    }
+    for (let i = 0; i < 18; i += 1) {
+      const a = angle - 0.45 + Math.random() * 0.9;
+      const speed = 120 + Math.random() * 160;
+      state.particles.push({
+        x: x + Math.cos(angle) * 32,
+        y: y + Math.sin(angle) * 24,
+        vx: Math.cos(a) * speed,
+        vy: Math.sin(a) * speed,
+        r: 2 + Math.random() * 4,
+        life: 0.22 + Math.random() * 0.18,
+        maxLife: 0.4,
+        color: Math.random() < 0.5 ? "#ffffff" : color,
+      });
+    }
+  }
+
+  function lungeEffect(x, y, angle, color) {
+    for (let i = 0; i < 10; i += 1) {
+      const back = 8 + i * 5;
+      state.particles.push({
+        x: x - Math.cos(angle) * back + (Math.random() - 0.5) * 14,
+        y: y - Math.sin(angle) * back + 25 + (Math.random() - 0.5) * 8,
+        vx: -Math.cos(angle) * (40 + i * 8),
+        vy: -Math.sin(angle) * (20 + i * 4),
+        r: 3 + Math.random() * 4,
+        life: 0.18 + Math.random() * 0.14,
+        maxLife: 0.32,
         color,
       });
     }
