@@ -290,17 +290,23 @@
 
   const enemyCatalog = [
     ["スライム", "#65d6ff", 26, 11, 8, 6, "slime"],
-    ["毒花モンスター", "#d95d91", 32, 13, 10, 8, "flower"],
     ["黄金キノコ", "#ff8d4f", 30, 12, 10, 8, "mushroom"],
     ["ゴブリン", "#79ce5f", 38, 16, 13, 11, "goblin"],
     ["バット", "#775ccf", 24, 15, 11, 10, "bat"],
+    ["ウルフ", "#9aa4b8", 34, 17, 13, 12, "wolf"],
+    ["ゴーレム", "#a88b69", 58, 22, 26, 20, "golem"],
+    ["ゴースト", "#e8ecff", 28, 16, 14, 12, "ghost"],
+    ["ミミック", "#b57542", 42, 20, 22, 18, "mimic"],
     ["リザード戦士", "#4fc18b", 44, 19, 17, 15, "lizard"],
-    ["ジェムカニ", "#57d7d1", 40, 15, 20, 16, "crab"],
+    ["ビースマーム", "#a3d847", 36, 20, 19, 16, "bee"],
     ["カクタス兵", "#8ccf45", 46, 18, 19, 17, "cactus"],
     ["スノーマン魔物", "#c7f4ff", 48, 18, 22, 18, "snowman"],
-    ["騎士モンスター", "#38405d", 58, 24, 32, 24, "knight"],
-    ["ドール", "#c89c62", 52, 21, 29, 22, "doll"],
     ["小型ドラゴン", "#e45e41", 62, 26, 35, 28, "dragon"],
+    ["ダークナイト", "#38405d", 58, 24, 32, 24, "knight"],
+    ["魔女モンスター", "#8d4ed8", 44, 22, 28, 22, "mage"],
+    ["ジェムカニ", "#57d7d1", 40, 15, 20, 16, "crab"],
+    ["ドール", "#c89c62", 52, 21, 29, 22, "doll"],
+    ["毒花モンスター", "#d95d91", 32, 13, 10, 8, "flower"],
   ];
 
   const quizPool = [
@@ -314,10 +320,9 @@
     { q: "「山」の読み方は?", a: ["かわ", "やま", "そら"], correct: 1, hint: "高くもり上がった土地だよ。" },
   ];
 
-  const stageNames = ["星の森", "風の草原", "炎の山", "水晶の湖", "砂の王国", "闇の城"];
+  const stageNames = ["ツタの森", "溶岩洞窟", "水晶湖", "砂の遺跡", "黒星の宮殿"];
   const bossData = [
     ["ツタの大蛇", "#3fb86b", "#bdff69"],
-    ["風冠のグリフォン", "#83d9ff", "#fff7a8"],
     ["マグマゴーレム", "#d95c32", "#ffcf65"],
     ["アクアドラゴン", "#3aabff", "#cff8ff"],
     ["サンドスコーピオン", "#d3a24d", "#fff06b"],
@@ -336,7 +341,7 @@
   assetLibrary.image.onerror = () => {
     assetLibrary.failed = true;
   };
-  assetLibrary.image.src = "assets/asset-library.png";
+  assetLibrary.image.src = "assets/asset-library.jpg";
 
   const heroSprites = {
     "blue-swordsman": { x: 46, y: 92, w: 40, h: 72 },
@@ -376,11 +381,16 @@
   const bossSprites = [
     { x: 442, y: 418, w: 143, h: 92 },
     { x: 635, y: 418, w: 143, h: 92 },
-    { x: 635, y: 418, w: 143, h: 92 },
     { x: 779, y: 418, w: 143, h: 92 },
     { x: 442, y: 536, w: 143, h: 92 },
     { x: 538, y: 626, w: 104, h: 70 },
   ];
+
+  const effectSprites = {
+    slash: { x: 834, y: 812, w: 48, h: 54 },
+    dark: { x: 890, y: 812, w: 48, h: 54 },
+    burst: { x: 947, y: 812, w: 48, h: 54 },
+  };
 
   const keys = new Set();
   let audio;
@@ -2091,6 +2101,26 @@
       const alpha = Math.max(0, p.life / p.maxLife);
       ctx.save();
       ctx.globalAlpha = alpha;
+      if (p.type === "assetEffect" && assetLibrary.ready && effectSprites[p.spriteKey]) {
+        const source = effectSprites[p.spriteKey];
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.angle || 0);
+        ctx.imageSmoothingEnabled = false;
+        const scale = (p.r || 1) * (1 + (1 - alpha) * 0.55);
+        ctx.drawImage(
+          assetLibrary.image,
+          source.x,
+          source.y,
+          source.w,
+          source.h,
+          (-source.w * scale) / 2,
+          (-source.h * scale) / 2,
+          source.w * scale,
+          source.h * scale,
+        );
+        ctx.restore();
+        continue;
+      }
       ctx.shadowColor = p.color;
       ctx.shadowBlur = 22;
       ctx.fillStyle = p.color;
@@ -2178,6 +2208,20 @@
 
   function slashEffect(x, y, angle, range, color, weapon) {
     const wide = weapon === "greatsword" || weapon === "longsword" || weapon === "bowblade";
+    if (assetLibrary.ready) {
+      const key = weapon === "dagger" || weapon === "greatsword" ? "dark" : "slash";
+      state.particles.push({
+        type: "assetEffect",
+        spriteKey: key,
+        x: x + Math.cos(angle) * range * 0.55,
+        y: y + Math.sin(angle) * range * 0.38,
+        angle,
+        r: wide ? 1.8 : 1.35,
+        life: 0.22,
+        maxLife: 0.22,
+        color,
+      });
+    }
     const start = angle - (wide ? 1.35 : 1.05);
     const end = angle + (wide ? 1.25 : 0.95);
     for (let i = 0; i < 34; i += 1) {
